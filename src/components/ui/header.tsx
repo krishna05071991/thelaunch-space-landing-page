@@ -103,9 +103,9 @@ export function Header() {
                     className="text-sm px-6"
                   >
                     Start Moving
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </SparklesButton>
-                </div>
+                     <div className="w-full h-0.5 bg-white/80 transform transition-transform duration-300"></div>
+                     <div className="w-full h-0.5 bg-white/80 transform transition-transform duration-300"></div>
+                     <div className="w-full h-0.5 bg-white/80 transform transition-transform duration-300"></div>
 
                 {/* Mobile Menu Button */}
                 <button
