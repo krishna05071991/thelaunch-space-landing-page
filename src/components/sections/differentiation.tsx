@@ -5,7 +5,7 @@
 import { motion } from "motion/react";
 import { Check, X } from "lucide-react";
 
-export function DifferentiationSection() {
+export function DifferentiationSection({ id }: { id?: string }) {
   const comparisonData = [
     {
       category: "Timeline to MVP",

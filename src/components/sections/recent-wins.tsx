@@ -73,9 +73,9 @@ const projectsData: ProjectCard[] = [
   },
 ];
 
-export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
+export const RecentWinsSection = forwardRef<HTMLElement, { id?: string }>((props, ref) => {
   return (
-    <section className="relative z-10 py-20 lg:py-32" ref={ref}>
+    <section className="relative z-10 py-20 lg:py-32" ref={ref} id={props.id}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           
