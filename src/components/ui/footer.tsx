@@ -1,36 +1,31 @@
 /*
- * Footer Component - Animated footer with background boxes effect
- * Features company branding and contact information with interactive hover effects
+ * Footer Component - Thin footer that blends with continuous scroll background
+ * Features animated background boxes with subtle integration
  */
-"use client";
 import React from "react";
 import { Boxes } from "@/components/ui/background-boxes";
-import { cn } from "@/lib/utils";
 
 export function Footer() {
   return (
-    <footer className="h-96 relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center">
-    <footer className="h-32 relative w-full overflow-hidden flex flex-col items-center justify-center">
-      {/* Subtle gradient blend from previous section */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-transparent via-black/10 to-black/20 z-10 pointer-events-none" />
+    <footer className="relative h-32 overflow-hidden flex items-center justify-center">
+      {/* Subtle gradient overlay for blending */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/20 pointer-events-none z-10" />
       
-      {/* Additional subtle radial mask for grid visibility */}
-      <div className="absolute inset-0 w-full h-full z-20 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)] pointer-events-none" />
+      {/* Radial mask for subtle grid visibility */}
+      <div className="absolute inset-0 [mask-image:radial-gradient(circle_at_center,transparent_20%,white_70%)] pointer-events-none z-20" />
 
-      {/* Animated background boxes */}
+      {/* Background boxes with reduced opacity */}
+      <Boxes />
       
-      <h1 className={cn("md:text-2xl text-lg text-white relative z-30 font-bold")}>
-      
-      {/* Footer Content */}
-      <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8">
-        <h1 className={cn("md:text-4xl text-xl text-white font-bold tracking-tight mb-4")}>
+      <div className="relative z-30 text-center px-4">
+        <h2 className="md:text-2xl text-lg font-bold text-white mb-1">
           thelaunch.space
-        </h1>
-        <p className="text-center mt-2 text-neutral-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-      <p className="text-center mt-1 text-neutral-300 relative z-30 text-sm md:text-base">
+        </h2>
+        <p className="text-sm md:text-base text-white/80 leading-relaxed">
+          Serving founders who refuse to go slow. Contact at{" "}
           <a 
             href="mailto:krishna@thelaunch.space" 
-            className="text-blue-300 hover:text-blue-200 underline underline-offset-2 transition-colors duration-200"
+            className="text-blue-300 hover:text-blue-200 transition-colors duration-300"
           >
             krishna@thelaunch.space
           </a>{" "}
@@ -39,6 +34,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
-  )
 }
