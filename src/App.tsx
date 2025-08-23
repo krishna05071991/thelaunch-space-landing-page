@@ -7,6 +7,7 @@ import { Header } from "@/components/ui/header";
 import { HeroSection } from "@/components/sections/hero";
 import { ProblemSolutionSection } from "@/components/sections/problem-solution";
 import { DifferentiationSection } from "@/components/sections/differentiation";
+import { RecentWinsSection } from "@/components/sections/recent-wins";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <ProblemSolutionSection />
         
         <DifferentiationSection />
+        
+        <RecentWinsSection />
         
         {/* Future sections will go here */}
       </main>
