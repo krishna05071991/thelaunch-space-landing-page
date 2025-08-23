@@ -218,11 +218,9 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                           <p className="text-base xl:text-lg text-white/90 font-medium leading-relaxed group-hover:text-white transition-colors duration-300">
                             {credential.text}
                           </p>
-                    <img
-                      src="/profile-photo.JPG"
-                      alt="Krishna - Founder of thelaunch.space"
-                      className="w-full h-full rounded-full object-cover"
-                    />
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               </motion.div>
