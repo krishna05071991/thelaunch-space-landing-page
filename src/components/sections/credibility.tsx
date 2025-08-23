@@ -79,6 +79,7 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                 </div>
                 {/* Animated glow effect */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
+              </div>
             </motion.div>
 
             {/* Mobile Story */}
