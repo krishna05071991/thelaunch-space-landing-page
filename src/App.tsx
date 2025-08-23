@@ -13,7 +13,6 @@ import { ProcessTimelineSection } from "@/components/sections/process-timeline";
 import { CredibilitySection } from "@/components/sections/credibility";
 import { AIMasterySection } from "@/components/sections/ai-mastery";
 import { FinalCTASection } from "@/components/sections/final-cta";
-import { Footer } from "@/components/ui/footer";
 
 function App() {
   return (
@@ -47,9 +46,6 @@ function App() {
         
         <FinalCTASection />
       </main>
-      
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
