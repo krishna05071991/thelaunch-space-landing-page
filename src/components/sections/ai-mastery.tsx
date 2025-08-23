@@ -48,44 +48,6 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
           </motion.div>
 
           {/* What You'll Learn */}
-          <motion.div
-            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl mb-12 lg:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
-            
-            <div className="relative z-10">
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4 text-center">
-                AI-First Building Mastery
-              </h3>
-              <p className="text-base lg:text-lg text-blue-300 mb-6 text-center font-medium">
-                —by building YOUR app with expert guiding you at every step:
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                {learningOutcomes.map((outcome, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start space-x-4 group"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 + (index * 0.1) }}
-                  >
-                    <div className="flex-shrink-0 w-6 h-6 bg-blue-500/20 border border-blue-400/30 rounded-full flex items-center justify-center group-hover:bg-blue-500/30 transition-colors duration-300">
-                      <Zap className="w-3 h-3 text-blue-400" />
-                    </div>
-                    <p className="text-sm lg:text-base text-white/90 leading-relaxed group-hover:text-white transition-colors duration-300">
-                      {outcome}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
 
           {/* Pricing Section */}
           <motion.div
