@@ -6,6 +6,7 @@ import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { CleanAnimatedText, HighlightedText } from "@/components/ui/clean-animated-text";
+import { TypewriterText } from "@/components/ui/animated-text";
 
 export function HeroSection() {
   return (
@@ -24,28 +25,29 @@ export function HeroSection() {
               <div className="mb-2">
                 <span className="text-white">
                   Your{" "}
-                  <HighlightedText
-                    text="idea"
-                    highlight="idea"
-                    className="text-white"
-                    delay={0.2}
-                  />{" "}
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                    idea
+                  </span>{" "}
                   to{" "}
-                  <HighlightedText
-                    text="product"
-                    highlight="product"
-                    className="text-white"
-                    delay={0.4}
-                  />{" "}
-                  - live
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                    product
+                  </span>
                 </span>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center mb-2">
                 <CleanAnimatedText 
-                  text="in 21 days" 
+                  text="live" 
                   className="text-white font-bold"
-                  delay={1.0}
-                  variant="bounce"
+                  delay={0.8}
+                  variant="slide"
+                />
+              </div>
+              <div className="flex justify-center">
+                <TypewriterText 
+                  text="in 21 days" 
+                  className="text-white/80 font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+                  delay={1.2}
+                  speed={80}
                 />
               </div>
             </h1>
@@ -62,7 +64,7 @@ export function HeroSection() {
               <CleanAnimatedText 
                 text="While your competitors are still planning, you'll be talking to real users"
                 className="text-white/80"
-                delay={0.6}
+                delay={1.8}
                 variant="fade"
               />
             </h2>
@@ -73,7 +75,7 @@ export function HeroSection() {
             className="mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 2.2 }}
           >
             <SparklesButton
               variant="primary"
@@ -91,7 +93,7 @@ export function HeroSection() {
             className="mb-12 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 2.6 }}
           >
             <p className="text-white/60 text-sm lg:text-base mb-6 text-center font-medium tracking-wide">
               Trusted by founders who move fast:
@@ -124,7 +126,7 @@ export function HeroSection() {
             className="text-sm sm:text-base lg:text-lg text-white/50 italic"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            transition={{ duration: 0.8, delay: 3.0 }}
           >
             Next available slot: September 2025
           </motion.p>
