@@ -113,17 +113,7 @@ export function Header() {
                   className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300"
                   aria-label="Toggle mobile menu"
                 >
-                  <Menu className="w-6 h-6" />
-                </button>
-                
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </motion.header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
