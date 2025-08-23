@@ -9,6 +9,7 @@ import { ProblemSolutionSection } from "@/components/sections/problem-solution";
 import { DifferentiationSection } from "@/components/sections/differentiation";
 import { RecentWinsSection } from "@/components/sections/recent-wins";
 import { PricingSection } from "@/components/sections/pricing";
+import { ProcessTimelineSection } from "@/components/sections/process-timeline";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
         <RecentWinsSection />
         
         <PricingSection />
+        
+        <ProcessTimelineSection />
         
         {/* Future sections will go here */}
       </main>
