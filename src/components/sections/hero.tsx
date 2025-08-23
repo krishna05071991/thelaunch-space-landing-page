@@ -37,19 +37,6 @@ export function HeroSection() {
               </div>
             </h1>
           </motion.div>
-              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-                <em>idea</em>
-              </span>{" "}
-              to{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-                <em>product</em>
-              </span>{" "}
-              -{" "}
-              <span className="inline-flex items-baseline gap-1 sm:gap-2">
-                live <Vapour21Days className="flex-shrink-0" />
-              </span>
-            </h1>
-          </motion.div>
 
           {/* Subheadline */}
           <motion.h2 
