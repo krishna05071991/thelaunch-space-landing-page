@@ -47,43 +47,6 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
             </p>
           </motion.div>
 
-          {/* Teaching Track Record */}
-          <motion.div
-            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl mb-12 lg:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
-            
-            <div className="relative z-10">
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-6 text-center">
-                Proven Mentor with Real Results:
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                {teachingCredentials.map((credential, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start space-x-4 group"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 + (index * 0.1) }}
-                  >
-                    <div className="flex-shrink-0 w-6 h-6 bg-green-500/20 border border-green-400/30 rounded-full flex items-center justify-center group-hover:bg-green-500/30 transition-colors duration-300">
-                      <Check className="w-3 h-3 text-green-400" />
-                    </div>
-                    <p className="text-sm lg:text-base text-white/90 leading-relaxed group-hover:text-white transition-colors duration-300">
-                      {credential}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
           {/* What You'll Learn */}
           <motion.div
             className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl mb-12 lg:mb-16"
