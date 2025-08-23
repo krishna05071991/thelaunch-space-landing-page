@@ -55,6 +55,8 @@ export function Vapour21Days({ className = "" }: Vapour21DaysProps) {
     return "96px"; // text-8xl
   }, []);
 
+  // Remove custom line-height to inherit from parent
+
   return (
     <div 
       ref={containerRef}
@@ -66,12 +68,11 @@ export function Vapour21Days({ className = "" }: Vapour21DaysProps) {
         fontWeight: 700,
         color: '#ffffff',
         fontFamily: 'Inter, sans-serif',
-        lineHeight: 1,
       }}
     >
       {/* Vapour effect component - only show when animating */}
       {hasAnimated && !showStaticText && (
-        <div className="absolute -inset-12 overflow-visible">
+        <div className="absolute -inset-12 overflow-visible sm:transform-none transform -translate-y-1">
           <VaporizeTextCycle
             texts={["in 21 days"]}
             font={{
@@ -104,7 +105,6 @@ export function Vapour21Days({ className = "" }: Vapour21DaysProps) {
           fontWeight: 700,
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
-          lineHeight: 1,
           display: 'inline',
           whiteSpace: 'nowrap',
         }}
