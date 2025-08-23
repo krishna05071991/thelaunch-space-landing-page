@@ -31,24 +31,15 @@ export function HeroSection() {
                   to{" "}
                   <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
                     product
-                  </span>
+                  </span>{" "}
+                  -{" "}
+                  <TypewriterText 
+                    text="live in 21 days" 
+                    className="text-white"
+                    delay={0.8}
+                    speed={80}
+                  />
                 </span>
-              </div>
-              <div className="flex justify-center mb-2">
-                <CleanAnimatedText 
-                  text="live" 
-                  className="text-white font-bold"
-                  delay={0.8}
-                  variant="slide"
-                />
-              </div>
-              <div className="flex justify-center">
-                <TypewriterText 
-                  text="in 21 days" 
-                  className="text-white/80 font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
-                  delay={1.2}
-                  speed={80}
-                />
               </div>
             </h1>
           </motion.div>
