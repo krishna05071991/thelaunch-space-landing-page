@@ -19,10 +19,15 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            We Turn Your Ideas Into{" "}
+            Your{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-              Products FAST
+              <em>idea</em>
             </span>
+            {" "}to{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+              <em>product</em>
+            </span>
+            {" "}- live in 21 Days
           </motion.h1>
 
           {/* Subheadline */}
