@@ -1,11 +1,11 @@
 /*
  * Hero Section Component - Main landing page hero with headline and CTA
- * Features responsive typography, vapor effect on "21 days", and engaging call-to-action
+ * Features responsive typography, animated text effects, and engaging call-to-action
  */
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { Vapour21Days } from "@/components/ui/vapour-21-days";
+import { CleanAnimatedText, HighlightedText } from "@/components/ui/clean-animated-text";
 
 export function HeroSection() {
   return (
@@ -22,31 +22,51 @@ export function HeroSection() {
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-tight">
               <div className="mb-2">
-                Your{" "}
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-                  <em>idea</em>
-                </span>{" "}
-                to{" "}
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-                  <em>product</em>
-                </span>{" "}
-                - live
+                <span className="text-white">
+                  Your{" "}
+                  <HighlightedText
+                    text="idea"
+                    highlight="idea"
+                    className="text-white"
+                    delay={0.2}
+                  />{" "}
+                  to{" "}
+                  <HighlightedText
+                    text="product"
+                    highlight="product"
+                    className="text-white"
+                    delay={0.4}
+                  />{" "}
+                  - live
+                </span>
               </div>
               <div className="flex justify-center">
-                <Vapour21Days className="flex-shrink-0" />
+                <CleanAnimatedText 
+                  text="in 21 days" 
+                  className="text-white font-bold"
+                  delay={1.0}
+                  variant="bounce"
+                />
               </div>
             </h1>
           </motion.div>
 
           {/* Subheadline */}
-          <motion.h2 
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white/80 tracking-tight leading-relaxed mb-8 max-w-4xl"
+          <motion.div 
+            className="mb-8 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            While your competitors are still planning, you'll be talking to real users
-          </motion.h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white/80 tracking-tight leading-relaxed">
+              <CleanAnimatedText 
+                text="While your competitors are still planning, you'll be talking to real users"
+                className="text-white/80"
+                delay={0.6}
+                variant="fade"
+              />
+            </h2>
+          </motion.div>
 
           {/* Primary CTA */}
           <motion.div 
