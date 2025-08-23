@@ -191,15 +191,17 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none group-hover:from-blue-500/10 transition-all duration-300"></div>
-                  <div className="relative z-10 text-center">
+                  <div className="relative z-10 text-center h-full flex flex-col">
                     <div className="flex items-center justify-center space-x-2 mb-4">
                       <User className="w-8 h-8 text-blue-400" />
                       <h4 className="text-xl lg:text-2xl font-bold text-white">1:1 Live Coaching</h4>
                     </div>
                     <div className="text-3xl lg:text-4xl font-bold text-blue-300 mb-4">$999</div>
-                    <p className="text-sm lg:text-base text-white/80 leading-relaxed mb-6">
-                      Ten sessions, just you and Krishna, focused 100% on your product. Enjoy tailored mentorship, all your questions answered, and expert feedback every step of the way.
-                    </p>
+                    <div className="flex-grow">
+                      <p className="text-sm lg:text-base text-white/80 leading-relaxed mb-6">
+                        Ten sessions, just you and Krishna, focused 100% on your product. Enjoy tailored mentorship, all your questions answered, and expert feedback every step of the way.
+                      </p>
+                    </div>
                     <SparklesButton
                       variant="outline"
                       size="lg"
@@ -220,18 +222,20 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
                   transition={{ duration: 0.6, delay: 1.0 }}
                 >
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-green-500/5 via-transparent to-transparent pointer-events-none group-hover:from-green-500/10 transition-all duration-300"></div>
-                  <div className="relative z-10 text-center">
+                  <div className="relative z-10 text-center h-full flex flex-col">
                     <div className="flex items-center justify-center space-x-2 mb-4">
                       <Users className="w-8 h-8 text-green-400" />
                       <h4 className="text-xl lg:text-2xl font-bold text-white">Small Group Coaching (1:3)</h4>
                     </div>
                     <div className="text-3xl lg:text-4xl font-bold text-green-300 mb-4">$499</div>
-                    <p className="text-sm lg:text-base text-white/80 leading-relaxed mb-4">
-                      Join a micro-cohort of three founders. Get the same deep support plus the advantage of learning alongside peers—all working towards launching your own app in ten sessions.
-                    </p>
-                    <p className="text-xs text-orange-300 font-medium mb-6">
-                      Only 3 spots per cohort!
-                    </p>
+                    <div className="flex-grow">
+                      <p className="text-sm lg:text-base text-white/80 leading-relaxed mb-4">
+                        Join a micro-cohort of three founders. Get the same deep support plus the advantage of learning alongside peers—all working towards launching your own app in ten sessions.
+                      </p>
+                      <p className="text-xs text-orange-300 font-medium mb-6">
+                        Only 3 spots per cohort!
+                      </p>
+                    </div>
                     <SparklesButton
                       variant="outline"
                       size="lg"
