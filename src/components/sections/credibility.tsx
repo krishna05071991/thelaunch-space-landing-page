@@ -221,6 +221,17 @@ export const CredibilitySection = forwardRef<HTMLElement>((props, ref) => {
                     </div>
                   </div>
                 </motion.div>
+              </motion.div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+});
+
+CredibilitySection.displayName = 'CredibilitySection';
               </div>
             </div>
             
