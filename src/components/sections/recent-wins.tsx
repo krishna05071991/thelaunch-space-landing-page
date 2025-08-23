@@ -82,17 +82,17 @@ export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
           <div className="max-w-7xl mx-auto">
             
             {/* Section with sticky cards */}
-            <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-20">
+            <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-20 lg:min-h-[calc(100vh-5rem)]">
               
               {/* Left: Sticky Cards */}
               <div className="lg:w-1/2">
                 <div className="grid gap-8">
                   {projectsData.map((project, i) => (
-                    <div key={i} className="sticky top-20 h-screen flex items-center">
+                    <div key={i} className="lg:sticky lg:top-20">
                       <motion.article
                         className={`
                           relative backdrop-blur-xl bg-white/5 border border-white/10 
-                          rounded-2xl p-6 lg:p-8 shadow-2xl w-full max-w-lg mx-auto
+                          rounded-2xl p-6 lg:p-8 shadow-2xl w-full max-w-lg mx-auto min-h-[20rem]
                           ${project.rotation}
                         `}
                         initial={{ opacity: 0, y: 30 }}
