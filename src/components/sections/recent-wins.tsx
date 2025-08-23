@@ -82,13 +82,13 @@ export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
           <div className="max-w-7xl mx-auto">
             
             {/* Section with sticky cards */}
-            <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-20 lg:min-h-[calc(100vh-5rem)]">
+            <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-20">
               
               {/* Left: Sticky Cards */}
-              <div className="lg:w-1/2">
-                <div className="grid gap-8">
+              <div className="lg:w-1/2" style={{ height: `${projectsData.length * 100}vh` }}>
+                <div className="relative">
                   {projectsData.map((project, i) => (
-                    <div key={i} className="lg:sticky lg:top-20">
+                    <div key={i} className="lg:sticky lg:top-20 lg:h-screen lg:flex lg:items-center">
                       <motion.article
                         className={`
                           relative backdrop-blur-xl bg-white/5 border border-white/10 
@@ -134,7 +134,7 @@ export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
               </div>
               
               {/* Right: Fixed Content */}
-              <div className="lg:w-1/2 lg:sticky lg:top-20 h-fit">
+              <div className="lg:w-1/2 lg:sticky lg:top-20 lg:h-screen lg:flex lg:items-start lg:pt-8">
                 <div className="space-y-8 lg:pl-12">
                   {/* Main Headline */}
                   <motion.div
