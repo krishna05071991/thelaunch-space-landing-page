@@ -22,34 +22,34 @@ function App() {
       <BeamsBackground 
         intensity="strong" 
         className="fixed inset-0 w-screen h-screen"
-      >
-        {/* Sticky Header */}
-        <Header />
+      />
+      
+      {/* Sticky Header */}
+      <Header />
+      
+      {/* Page Content - All sections share the same background */}
+      <main className="relative z-10">
+        <HeroSection />
         
-        {/* Page Content - All sections share the same background */}
-        <main className="relative z-10">
-          <HeroSection />
-          
-          <ProblemSolutionSection />
-          
-          <DifferentiationSection />
-          
-          <RecentWinsSection />
-          
-          <PricingSection />
-          
-          <ProcessTimelineSection />
-          
-          <CredibilitySection />
-          
-          <AIMasterySection />
-          
-          <FinalCTASection />
-        </main>
+        <ProblemSolutionSection />
         
-        {/* Footer */}
-        <Footer />
-      </BeamsBackground>
+        <DifferentiationSection />
+        
+        <RecentWinsSection />
+        
+        <PricingSection />
+        
+        <ProcessTimelineSection />
+        
+        <CredibilitySection />
+        
+        <AIMasterySection />
+        
+        <FinalCTASection />
+      </main>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

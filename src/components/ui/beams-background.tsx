@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 interface AnimatedGradientBackgroundProps {
     className?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     intensity?: "subtle" | "medium" | "strong";
 }
 
@@ -198,16 +198,18 @@ export function BeamsBackground({
                 }}
             />
 
-            <div className="relative z-10 flex h-screen w-full items-center justify-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="w-full max-w-6xl mx-auto"
-                >
-                    {children}
-                </motion.div>
-            </div>
+            {children && (
+                <div className="relative z-10 flex h-screen w-full items-center justify-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="w-full max-w-6xl mx-auto"
+                    >
+                        {children}
+                    </motion.div>
+                </div>
+            )}
         </div>
     );
 }
