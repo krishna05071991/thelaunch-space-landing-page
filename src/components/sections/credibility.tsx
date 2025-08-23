@@ -137,9 +137,11 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
               >
                 <div className="relative">
                   <div className="w-48 h-48 xl:w-56 xl:h-56 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-2">
-                    <div className="w-full h-full rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                      <Users className="w-24 h-24 xl:w-28 xl:h-28 text-gray-600" />
-                    </div>
+                    <img
+                      src="/profile-photo.JPG"
+                      alt="Krishna - Founder of thelaunch.space"
+                      className="w-full h-full rounded-full object-cover"
+                    />
                   </div>
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
                 </div>
@@ -216,9 +218,11 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                           <p className="text-base xl:text-lg text-white/90 font-medium leading-relaxed group-hover:text-white transition-colors duration-300">
                             {credential.text}
                           </p>
-                        </motion.div>
-                      ))}
-                    </div>
+                    <img
+                      src="/profile-photo.JPG"
+                      alt="Krishna - Founder of thelaunch.space"
+                      className="w-full h-full rounded-full object-cover"
+                    />
                   </div>
                 </motion.div>
               </motion.div>
