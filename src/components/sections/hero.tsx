@@ -30,7 +30,7 @@ export function HeroSection() {
                 <em>product</em>
               </span>{" "}
               -{" "}
-              <span className="inline-flex items-center gap-1 sm:gap-2">
+              <span className="inline-flex items-baseline gap-1 sm:gap-2">
                 live <Vapour21Days className="flex-shrink-0" />
               </span>
             </h1>
