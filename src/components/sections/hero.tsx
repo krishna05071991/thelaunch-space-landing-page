@@ -5,7 +5,7 @@
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { VaporDays } from "@/components/ui/vapor-days";
+import { Vapour21Days } from "@/components/ui/vapour-21-days";
 
 export function HeroSection() {
   return (
@@ -29,7 +29,7 @@ export function HeroSection() {
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
                 <em>product</em>
               </span>{" "}
-              - live in <VaporDays className="mx-1" />
+              - live{" "}<Vapour21Days className="inline-block" />
             </h1>
           </motion.div>
 

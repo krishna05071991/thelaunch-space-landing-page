@@ -2,7 +2,7 @@
  * Vapor Days Component - Sophisticated particle coalescence effect for "21 days"
  * Features scattered particles that coalesce into text with right-to-left formation wave
  */
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
 interface Particle {
   x: number;
@@ -31,7 +31,6 @@ export function VaporDays({ className = "" }: VaporDaysProps) {
   const animationFrameRef = useRef<number | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showFinalText, setShowFinalText] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const hasAnimatedRef = useRef(false);
   
   // Animation parameters
@@ -44,7 +43,6 @@ export function VaporDays({ className = "" }: VaporDaysProps) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
         if (entry.isIntersecting && !hasAnimatedRef.current) {
           setTimeout(() => {
             startAnimation();
@@ -156,7 +154,6 @@ export function VaporDays({ className = "" }: VaporDaysProps) {
           particle.opacity = particle.targetOpacity;
         } else {
           // Move toward target with easing
-          const speed = 3 + (distance * 0.02); // Speed increases with distance
           const easing = 0.15;
           
           particle.velocityX += dx * easing * deltaTime * 60;
