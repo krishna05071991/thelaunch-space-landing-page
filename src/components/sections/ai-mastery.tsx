@@ -19,6 +19,7 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
     <section className="relative z-10 min-h-screen flex items-center py-8 lg:py-16" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
+          <div id="mastery"></div>
           
           {/* Section Header */}
           <motion.div

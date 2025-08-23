@@ -78,6 +78,7 @@ export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
     <section className="relative z-10 py-20 lg:py-32" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
+          <div id="wins"></div>
           
           {/* Section with sticky cards */}
           <div className="flex flex-col lg:flex-row lg:justify-between lg:px-16 gap-16 lg:gap-20">
