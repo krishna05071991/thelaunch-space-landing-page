@@ -55,7 +55,7 @@ export const PricingCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: "easeInOut", delay: 0.1 }}
-      className="relative"
+      className="relative h-full flex"
     >
       {/* Popular badge */}
       {isPopular && (
@@ -70,8 +70,8 @@ export const PricingCard = ({
         className={cn(
           "relative h-full w-full overflow-hidden",
           // Glass morphism effect matching landing page theme
-          "backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl",
-          "p-6 lg:p-8",
+          "relative h-full w-full overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl shadow-2xl flex flex-col",
+          "p-4 sm:p-6",
           // Popular card highlight
           isPopular && "border-blue-500/30 bg-white/10",
           className,
@@ -80,27 +80,28 @@ export const PricingCard = ({
         {/* Subtle inner glow effect */}
         <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
         
-        <div className="relative z-10">
-          <div className="flex flex-col items-center border-b border-white/10 pb-6">
-            <span className="mb-6 inline-block text-white/90 text-lg font-medium">
+        <div className="relative z-10 flex flex-col h-full">
+          <div className="text-center mb-4">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
               {tier}
             </span>
-            <span className="mb-3 inline-block text-4xl lg:text-5xl font-bold text-white">
+            <div className="text-2xl sm:text-3xl font-bold text-white mb-2">
               {price}
             </span>
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent text-center font-medium">
+            <p className="text-sm text-white/70 font-medium">
               {bestFor}
             </span>
           </div>
-          
-          <div className="space-y-4 py-6 lg:py-8">
+                <span className="text-sm text-white/80 leading-relaxed">
+          <div className="space-y-2 mb-4 flex-grow">
             {benefits.map((benefit, index) => (
               <Benefit key={index} {...benefit} />
             ))}
           </div>
           
           <Button
-            className={cn(
+          <div className="mt-auto">
+            <button className="w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 hover:shadow-lg hover:shadow-purple-500/25 text-sm sm:text-base">
               "w-full font-medium transition-all duration-300",
               isPopular 
                 ? "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0" 
@@ -109,7 +110,8 @@ export const PricingCard = ({
             variant={isPopular ? "default" : "ghost"}
           >
             {CTA}
-          </Button>
+            </button>
+          </div>
         </div>
       </Card>
     </motion.div>
