@@ -5,7 +5,7 @@
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { CleanAnimatedText, HighlightedText } from "@/components/ui/clean-animated-text";
+import { CleanAnimatedText } from "@/components/ui/clean-animated-text";
 import { TypewriterText } from "@/components/ui/animated-text";
 
 export function HeroSection() {

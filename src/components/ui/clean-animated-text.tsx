@@ -24,37 +24,31 @@ export function CleanAnimatedText({
     return () => clearTimeout(timer);
   }, [delay]);
 
-  const getAnimationProps = () => {
+    const getAnimationProps = () => {
     switch (variant) {
       case "slide":
         return {
           initial: { opacity: 0, x: -20 },
           animate: isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 },
-          transition: { duration: 0.6, ease: "easeOut" }
+          transition: { duration: 0.6 }
         };
       case "scale":
         return {
           initial: { opacity: 0, scale: 0.8 },
           animate: isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 },
-          transition: { duration: 0.5, ease: "easeOut" }
+          transition: { duration: 0.5 }
         };
       case "bounce":
         return {
           initial: { opacity: 0, y: 20 },
           animate: isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
-          transition: { 
-            duration: 0.6, 
-            ease: [0.25, 0.46, 0.45, 0.94],
-            type: "spring",
-            stiffness: 100,
-            damping: 10
-          }
+          transition: { duration: 0.6 }
         };
       default: // fade
         return {
           initial: { opacity: 0 },
           animate: isVisible ? { opacity: 1 } : { opacity: 0 },
-          transition: { duration: 0.8, ease: "easeInOut" }
+          transition: { duration: 0.8 }
         };
     }
   };
@@ -101,7 +95,7 @@ export function HighlightedText({
       className={`inline-block ${className}`}
       initial={{ opacity: 0, y: 10 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.6 }}
     >
       {parts.map((part, index) => (
         <span key={index}>
@@ -113,8 +107,7 @@ export function HighlightedText({
               animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ 
                 duration: 0.4, 
-                delay: delay + 0.2 + index * 0.1,
-                ease: "easeOut"
+                delay: delay + 0.2 + index * 0.1
               }}
             >
               {highlight}
