@@ -21,20 +21,15 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-none">
-              <div className="flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2">
-                <span>Your{" "}</span>
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-                  <em>idea</em>
-                </span>
-                <span>{" "}to{" "}</span>
-                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-                  <em>product</em>
-                </span>
-                <span>{" "}- live in{" "}</span>
-                <span className="inline-block">
-                  <VaporDays />
-                </span>
-              </div>
+              Your{" "}
+              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                <em>idea</em>
+              </span>{" "}
+              to{" "}
+              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                <em>product</em>
+              </span>{" "}
+              - live in <VaporDays className="mx-1" />
             </h1>
           </motion.div>
 
