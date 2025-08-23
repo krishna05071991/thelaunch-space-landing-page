@@ -1,9 +1,16 @@
 /*
- * Recent Wins Section Component - Sticky cards showcase of completed projects
- * Features smooth scroll with Lenis and CSS sticky positioning for optimal performance
+ * Recent Wins Section Component - Deck-scroll showcase of completed projects
+ * Features GSAP ScrollTrigger for desktop interactions and responsive mobile layout
  */
 import { motion } from "motion/react";
-import { ReactLenis } from 'lenis/react';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register GSAP plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface ProjectCard {
   tag: string;
@@ -15,6 +22,9 @@ interface ProjectCard {
 }
 
 export function RecentWinsSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const projects: ProjectCard[] = [
     {
       tag: "#saas-products",
@@ -87,69 +97,160 @@ export function RecentWinsSection() {
     }
   };
 
-  return (
-    <ReactLenis root>
-      <section className="relative z-10 py-20 lg:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            
-            {/* Section Headline - Mobile Only */}
-            <motion.div
-              className="text-center mb-16 lg:hidden"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight mb-6">
-                Recent{" "}
-                <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                  Wins
-                </span>
-              </h2>
-              <p className="text-xl text-white/70 max-w-4xl mx-auto">
-                Quick proof that we ship real, revenue-generating products across landing pages, internal tools and SaaS
-              </p>
-            </motion.div>
+  useEffect(() => {
+    // Only run GSAP animations on desktop
+    const isDesktop = window.innerWidth >= 768;
+    if (!isDesktop || !containerRef.current) return;
 
-            {/* Desktop Sticky Layout */}
-            <div className="hidden lg:flex justify-between gap-16">
-              
-              {/* Left Side: Sticky Cards */}
-              <div className="w-[60%] space-y-8">
-                {projects.map((project, index) => (
-                  <div key={index} className="sticky top-0 h-screen flex items-center">
-                    <motion.div
-                      className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-8 shadow-2xl hover:shadow-[0_0_16px_rgba(99,102,241,0.3)] transition-all duration-300 hover:-translate-y-2 w-full"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
-                        borderImage: "linear-gradient(135deg, #6366F1, #8B5CF6) 1"
-                      }}
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: index * 0.1 }}
-                    >
-                      {/* Subtle inner glow */}
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
+    const cards = cardsRef.current.filter(Boolean);
+    if (cards.length === 0) return;
+
+    // Setup ScrollTrigger for each card
+    cards.forEach((card, index) => {
+      if (!card) return;
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top center",
+        end: "bottom center", 
+        scrub: 1,
+        pin: index < cards.length - 1, // Don't pin the last card
+        pinSpacing: false,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const scale = 1 - progress * 0.08; // Scale from 1 to 0.92
+          const opacity = 1 - progress * 0.6; // Fade to 40%
+          
+          gsap.set(card, {
+            scale: scale,
+            opacity: opacity,
+            zIndex: cards.length - index - Math.floor(progress * 10)
+          });
+        }
+      });
+    });
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  return (
+    <section className="relative z-10 py-20 lg:py-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section Headline */}
+          <motion.div
+            className="text-center mb-16 lg:mb-24"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
+              Recent{" "}
+              <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                Wins
+              </span>
+            </h2>
+            <p className="text-xl lg:text-2xl text-white/70 max-w-4xl mx-auto">
+              Quick proof that we ship real, revenue-generating products across landing pages, internal tools and SaaS
+            </p>
+          </motion.div>
+
+          {/* Deck-Scroll Container */}
+          <div 
+            ref={containerRef}
+            className="max-w-[1200px] mx-auto space-y-8 md:space-y-16"
+          >
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                ref={(el) => (cardsRef.current[index] = el)}
+                className="min-h-[80vh] md:h-[80vh] relative"
+              >
+                {/* Glass Card */}
+                <motion.div
+                  className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 lg:p-8 shadow-2xl hover:shadow-[0_0_16px_rgba(99,102,241,0.3)] transition-all duration-300 hover:-translate-y-2 h-full"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+                    borderImage: "linear-gradient(135deg, #6366F1, #8B5CF6) 1"
+                  }}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                >
+                  {/* Subtle inner glow */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
+                  
+                  <div className="relative z-10 h-full">
+                    {/* Mobile: Stacked Layout */}
+                    <div className="md:hidden space-y-6">
+                      {/* Mobile Mockup */}
+                      <div className="w-full aspect-[16/10] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border border-white/10 flex items-center justify-center">
+                        <div className="text-white/40 text-sm font-mono">
+                          {project.projectName} Interface
+                        </div>
+                      </div>
                       
-                      <div className="relative z-10 space-y-6">
-                        {/* Tag Badge */}
+                      {/* Mobile Content */}
+                      <div className="space-y-4">
+                        <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${getTagColorClasses(project.tagColor)}`}>
+                          {project.tag}
+                        </div>
+                        
+                        <div>
+                          <h3 className="text-2xl font-bold text-white mb-2">
+                            {project.projectName}
+                          </h3>
+                          <p className="text-lg text-white/80 mb-4">
+                            {project.descriptor}
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-center space-x-4">
+                          <div className="bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-1">
+                            <span className="text-green-400 text-sm font-medium">
+                              {project.timeToLaunch}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <blockquote className="text-lg text-white/90 italic border-l-4 border-blue-500/30 pl-4">
+                          "{project.impactQuote}"
+                        </blockquote>
+                      </div>
+                    </div>
+
+                    {/* Desktop: Side-by-Side Layout */}
+                    <div className="hidden md:flex h-full items-center space-x-8">
+                      {/* Left: Mockup (45%) */}
+                      <div className="w-[45%] h-full flex items-center">
+                        <div className="w-full max-h-[420px] aspect-[16/10] bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border border-white/10 shadow-inner flex items-center justify-center">
+                          <div className="text-white/40 text-lg font-mono">
+                            {project.projectName} Interface
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Right: Content (55%) */}
+                      <div className="w-[55%] space-y-6">
                         <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium border ${getTagColorClasses(project.tagColor)}`}>
                           {project.tag}
                         </div>
                         
-                        {/* Project Name */}
-                        <h3 className="text-3xl font-bold text-white leading-tight">
-                          {project.projectName}
-                        </h3>
+                        <div>
+                          <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                            {project.projectName}
+                          </h3>
+                          <p className="text-xl text-white/80 mb-6">
+                            {project.descriptor}
+                          </p>
+                        </div>
                         
-                        {/* Descriptor */}
-                        <p className="text-xl text-white/80 leading-relaxed">
-                          {project.descriptor}
-                        </p>
-                        
-                        {/* Time to Launch */}
                         <div className="flex items-center space-x-4">
                           <div className="bg-green-500/10 border border-green-500/20 rounded-lg px-4 py-2">
                             <span className="text-green-400 font-medium">
@@ -158,105 +259,32 @@ export function RecentWinsSection() {
                           </div>
                         </div>
                         
-                        {/* Impact Quote */}
-                        <blockquote className="text-xl text-white/90 italic border-l-4 border-blue-500/30 pl-6 mt-6">
+                        <blockquote className="text-xl text-white/90 italic border-l-4 border-blue-500/30 pl-6">
                           "{project.impactQuote}"
                         </blockquote>
                       </div>
-                    </motion.div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Right Side: Sticky Headline */}
-              <div className="w-[40%] sticky top-0 h-screen flex items-center">
-                <motion.div
-                  className="text-center"
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
-                    Recent{" "}
-                    <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                      Wins
-                    </span>
-                  </h2>
-                  <p className="text-xl lg:text-2xl text-white/70 leading-relaxed">
-                    Quick proof that we ship real, revenue-generating products across landing pages, internal tools and SaaS
-                  </p>
-                </motion.div>
-              </div>
-            </div>
-
-            {/* Mobile: Simple Stacked Cards */}
-            <div className="lg:hidden space-y-8">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6 shadow-2xl"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
-                  }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  {/* Subtle inner glow */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
-                  
-                  <div className="relative z-10 space-y-4">
-                    {/* Tag Badge */}
-                    <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${getTagColorClasses(project.tagColor)}`}>
-                      {project.tag}
                     </div>
-                    
-                    {/* Project Name */}
-                    <h3 className="text-2xl font-bold text-white">
-                      {project.projectName}
-                    </h3>
-                    
-                    {/* Descriptor */}
-                    <p className="text-lg text-white/80">
-                      {project.descriptor}
-                    </p>
-                    
-                    {/* Time to Launch */}
-                    <div className="flex items-center space-x-4">
-                      <div className="bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-1">
-                        <span className="text-green-400 text-sm font-medium">
-                          {project.timeToLaunch}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* Impact Quote */}
-                    <blockquote className="text-lg text-white/90 italic border-l-4 border-blue-500/30 pl-4">
-                      "{project.impactQuote}"
-                    </blockquote>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-
-            {/* Results Footer */}
-            <motion.div
-              className="text-center mt-16 lg:mt-24"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <p className="text-lg lg:text-xl text-white/60 font-medium italic max-w-3xl mx-auto">
-                Every build is live & generating value—nothing gathers dust in private repos.
-              </p>
-            </motion.div>
-            
+              </div>
+            ))}
           </div>
+
+          {/* Results Footer */}
+          <motion.div
+            className="text-center mt-16 lg:mt-24"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <p className="text-lg lg:text-xl text-white/60 font-medium italic max-w-3xl mx-auto">
+              Every build is live & generating value—nothing gathers dust in private repos.
+            </p>
+          </motion.div>
+          
         </div>
-      </section>
-    </ReactLenis>
+      </div>
+    </section>
   );
 }
