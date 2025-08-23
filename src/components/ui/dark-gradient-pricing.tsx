@@ -84,33 +84,33 @@ export const PricingCard = ({
           <div className="text-center mb-4">
             <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
               {tier}
-            </span>
+            </h3>
             <div className="text-2xl sm:text-3xl font-bold text-white mb-2">
               {price}
-            </span>
+            </div>
             <p className="text-sm text-white/70 font-medium">
               {bestFor}
-            </span>
+            </p>
           </div>
-                <span className="text-sm text-white/80 leading-relaxed">
+          
           <div className="space-y-2 mb-4 flex-grow">
             {benefits.map((benefit, index) => (
               <Benefit key={index} {...benefit} />
             ))}
           </div>
           
-          <Button
           <div className="mt-auto">
-            <button className="w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 hover:shadow-lg hover:shadow-purple-500/25 text-sm sm:text-base">
-              "w-full font-medium transition-all duration-300",
-              isPopular 
-                ? "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0" 
-                : "bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30"
-            )}
-            variant={isPopular ? "default" : "ghost"}
-          >
-            {CTA}
-            </button>
+            <Button
+              className={cn(
+                "w-full font-medium transition-all duration-300",
+                isPopular 
+                  ? "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0" 
+                  : "bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/30"
+              )}
+              variant={isPopular ? "default" : "ghost"}
+            >
+              {CTA}
+            </Button>
           </div>
         </div>
       </Card>
