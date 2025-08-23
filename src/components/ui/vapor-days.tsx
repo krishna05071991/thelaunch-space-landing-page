@@ -341,4 +341,4 @@ export function VaporDays({ className = "" }: VaporDaysProps) {
       <span className="sr-only">21 days</span>
     </div>
   );
-}</anoltAction>
+}
