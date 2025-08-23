@@ -1,10 +1,11 @@
 /*
  * Hero Section Component - Main landing page hero with headline and CTA
- * Features responsive typography and engaging call-to-action
+ * Features responsive typography, vapor effect on "21 days", and engaging call-to-action
  */
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import { VaporDays } from "@/components/ui/vapor-days";
 
 export function HeroSection() {
   return (
@@ -13,22 +14,29 @@ export function HeroSection() {
         <div className="flex flex-col items-center justify-center text-center max-w-5xl mx-auto">
           
           {/* Main Headline */}
-          <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-none mb-6"
+          <motion.div 
+            className="mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Your{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-              <em>idea</em>
-            </span>
-            {" "}to{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
-              <em>product</em>
-            </span>
-            {" "}- live in 21 Days
-          </motion.h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-none">
+              <div className="flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2">
+                <span>Your{" "}</span>
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                  <em>idea</em>
+                </span>
+                <span>{" "}to{" "}</span>
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                  <em>product</em>
+                </span>
+                <span>{" "}- live in{" "}</span>
+                <span className="inline-block">
+                  <VaporDays />
+                </span>
+              </div>
+            </h1>
+          </motion.div>
 
           {/* Subheadline */}
           <motion.h2 
