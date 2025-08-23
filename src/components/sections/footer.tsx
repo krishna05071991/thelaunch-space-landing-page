@@ -13,16 +13,13 @@ export const Footer = forwardRef<HTMLElement>((props, ref) => {
           
           {/* Footer Container */}
           <motion.div
-            className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl text-center"
+            className="text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* Subtle inner glow */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
-            
-            <div className="relative z-10 space-y-4">
+            <div className="space-y-4">
               
               {/* Footer Heading */}
               <motion.h3
