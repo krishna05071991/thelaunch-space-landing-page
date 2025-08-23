@@ -21,59 +21,54 @@ export const PricingSection = forwardRef<HTMLElement>((props, ref) => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
-              Simple{" "}
-              <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                Pricing
-              </span>
+             What You Get in{" "}
+             <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+               3-4 Weeks
+             </span>
             </h2>
             <p className="text-lg lg:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-              Use it for free for yourself, upgrade when your team needs advanced control.
+             Fast, focused delivery that gets you to market while your competitors are still planning.
             </p>
           </motion.div>
 
           {/* Pricing Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             <PricingCard
-              tier="Free"
-              price="$0/mo"
-              bestFor="Best for 1-5 users"
-              CTA="Get started free"
+             tier="Landing Pages"
+             price="$500-1,500"
+             bestFor="Perfect for demo days and launches"
+             CTA="Start Your Launch Page"
               benefits={[
-                { text: "One workspace", checked: true },
-                { text: "Email support", checked: true },
-                { text: "1 day data retention", checked: false },
-                { text: "Custom roles", checked: false },
-                { text: "Priority support", checked: false },
-                { text: "SSO", checked: false },
+               { text: "Conversion-optimized for your audience", checked: true },
+               { text: "Perfect for demo days and launches", checked: true },
+               { text: "AI-enhanced user experiences", checked: true },
+               { text: "Multiple levels of complexity handled", checked: true },
               ]}
             />
             <PricingCard
-              tier="Pro"
-              price="$79/mo"
-              bestFor="Best for 5-50 users"
-              CTA="14-day free trial"
+             tier="MVP Launch"
+             price="$1,500-4,000"
+             bestFor="Live product your customers can actually use"
+             CTA="Launch Your MVP"
               isPopular={true}
               benefits={[
-                { text: "Five workspaces", checked: true },
-                { text: "Email support", checked: true },
-                { text: "7 day data retention", checked: true },
-                { text: "Custom roles", checked: true },
-                { text: "Priority support", checked: false },
-                { text: "SSO", checked: false },
+               { text: "Live product your customers can actually use", checked: true },
+               { text: "AI-powered features from day one", checked: true },
+               { text: "Built for rapid iteration and scaling", checked: true },
+               { text: "Ready for real user feedback", checked: true },
               ]}
             />
             <PricingCard
-              tier="Enterprise"
-              price="Contact us"
-              bestFor="Best for 50+ users"
-              CTA="Contact us"
+             tier="Ongoing Partnership"
+             price="$1,000-5,000/mo"
+             bestFor="Think like your technical co-founder"
+             CTA="Become Partners"
               benefits={[
-                { text: "Unlimited workspaces", checked: true },
-                { text: "Email support", checked: true },
-                { text: "30 day data retention", checked: true },
-                { text: "Custom roles", checked: true },
-                { text: "Priority support", checked: true },
-                { text: "SSO", checked: true },
+               { text: "Depending on the time spent on your business", checked: true },
+               { text: "Think like your technical co-founder", checked: true },
+               { text: "Continuous product evolution", checked: true },
+               { text: "AI workflow optimization", checked: true },
+               { text: "Priority access for experiments", checked: true },
               ]}
             />
           </div>
