@@ -6,6 +6,9 @@ import { forwardRef } from 'react';
 import { motion } from "motion/react";
 import { Check, Award, Users, TrendingUp, Zap } from "lucide-react";
 
+// Portrait image from public folder
+const krishnaPortrait = '/krishna-portrait.JPG';
+
 const credentialsData = [
   {
     icon: <Users className="w-5 h-5" />,
@@ -63,12 +66,26 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="relative">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-1">
-                  <div className="w-full h-full rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                    <Users className="w-16 h-16 text-gray-600" />
+                {/* Professional Portrait */}
+                <div className="w-48 h-48 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-1 shadow-2xl">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
+                    {/* Krishna's Portrait */}
+                    <img 
+                      src={krishnaPortrait} 
+                      alt="Krishna - AI Builder and Technical Co-Founder" 
+                      className="w-full h-full object-cover rounded-full"
+                    />
                   </div>
                 </div>
+                {/* Animated glow effect */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
+                {/* Decorative elements */}
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500/20 border border-green-400/30 rounded-full flex items-center justify-center">
+                  <Check className="w-3 h-3 text-green-400" />
+                </div>
+                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-purple-500/20 border border-purple-400/30 rounded-full flex items-center justify-center">
+                  <Award className="w-3 h-3 text-purple-400" />
+                </div>
               </div>
             </motion.div>
 
@@ -136,12 +153,26 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 <div className="relative">
-                  <div className="w-48 h-48 xl:w-56 xl:h-56 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-2">
-                    <div className="w-full h-full rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                      <Users className="w-24 h-24 xl:w-28 xl:h-28 text-gray-600" />
+                  {/* Professional Portrait */}
+                  <div className="w-48 h-48 xl:w-56 xl:h-56 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 p-2 shadow-2xl">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
+                      {/* Krishna's Portrait */}
+                      <img 
+                        src={krishnaPortrait} 
+                        alt="Krishna - AI Builder and Technical Co-Founder" 
+                        className="w-full h-full object-cover rounded-full"
+                      />
                     </div>
                   </div>
+                  {/* Animated glow effect */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
+                  {/* Decorative elements */}
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-green-500/20 border border-green-400/30 rounded-full flex items-center justify-center">
+                    <Check className="w-4 h-4 text-green-400" />
+                  </div>
+                  <div className="absolute -bottom-3 -left-3 w-8 h-8 bg-purple-500/20 border border-purple-400/30 rounded-full flex items-center justify-center">
+                    <Award className="w-4 h-4 text-purple-400" />
+                  </div>
                 </div>
               </motion.div>
 
