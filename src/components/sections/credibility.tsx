@@ -232,14 +232,3 @@ export const CredibilitySection = forwardRef<HTMLElement>((props, ref) => {
 });
 
 CredibilitySection.displayName = 'CredibilitySection';
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-});
-
-CredibilitySection.displayName = 'CredibilitySection';
