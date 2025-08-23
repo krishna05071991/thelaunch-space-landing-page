@@ -20,8 +20,23 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-tight sm:leading-none">
-              Your{" "}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-tight">
+              <div className="mb-2">
+                Your{" "}
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                  <em>idea</em>
+                </span>{" "}
+                to{" "}
+                <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+                  <em>product</em>
+                </span>{" "}
+                - live
+              </div>
+              <div className="flex justify-center">
+                <Vapour21Days className="flex-shrink-0" />
+              </div>
+            </h1>
+          </motion.div>
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent">
                 <em>idea</em>
               </span>{" "}
