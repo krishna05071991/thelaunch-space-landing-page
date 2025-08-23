@@ -55,6 +55,9 @@ export const ProcessTimelineSection = forwardRef<HTMLElement>((props, ref) => {
                   3-4 Weeks
                 </span>
               </h2>
+             <p className="text-sm text-white/60 italic">
+               Our proven MVP development process
+             </p>
             </motion.div>
 
             {/* Mobile Timeline */}
@@ -91,6 +94,19 @@ export const ProcessTimelineSection = forwardRef<HTMLElement>((props, ref) => {
                 </motion.div>
               ))}
             </div>
+           
+           {/* Mobile Process Note */}
+           <motion.div
+             className="mt-8 text-center"
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.6, delay: 0.8 }}
+           >
+             <p className="text-xs text-white/50 italic leading-relaxed">
+               For landing pages and partnership models, we customize our process and timeline to perfectly match your specific needs and goals.
+             </p>
+           </motion.div>
           </div>
 
           {/* Desktop/Tablet Layout */}
