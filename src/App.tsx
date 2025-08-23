@@ -8,6 +8,7 @@ import { HeroSection } from "@/components/sections/hero";
 import { ProblemSolutionSection } from "@/components/sections/problem-solution";
 import { DifferentiationSection } from "@/components/sections/differentiation";
 import { RecentWinsSection } from "@/components/sections/recent-wins";
+import { PricingSection } from "@/components/sections/pricing";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
         <DifferentiationSection />
         
         <RecentWinsSection />
+        
+        <PricingSection />
         
         {/* Future sections will go here */}
       </main>
