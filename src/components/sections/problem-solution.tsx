@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { Component as GlassIcons } from "@/components/ui/glass-icons";
 import { FiBarChart2, FiClock, FiFileText, FiCalendar } from 'react-icons/fi';
 
-export function ProblemSolutionSection({ id }: { id?: string }) {
+export function ProblemSolutionSection() {
   const problemPoints = [
     "Your competitors are shipping and learning",
     "Market opportunities are expiring", 

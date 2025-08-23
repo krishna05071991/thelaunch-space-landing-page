@@ -10,7 +10,6 @@ import { DifferentiationSection } from "@/components/sections/differentiation";
 import { RecentWinsSection } from "@/components/sections/recent-wins";
 import { PricingSection } from "@/components/sections/pricing";
 import { ProcessTimelineSection } from "@/components/sections/process-timeline";
-import { CredibilitySection } from "@/components/sections/credibility";
 
 function App() {
   return (
@@ -26,19 +25,17 @@ function App() {
       
       {/* Page Content - All sections share the same background */}
       <main className="relative z-10">
-        <HeroSection id="hero" />
+        <HeroSection />
         
-        <ProblemSolutionSection id="problem-solution" />
+        <ProblemSolutionSection />
         
-        <DifferentiationSection id="differentiation" />
+        <DifferentiationSection />
         
-        <RecentWinsSection id="recent-wins" />
+        <RecentWinsSection />
         
-        <PricingSection id="pricing" />
+        <PricingSection />
         
-        <ProcessTimelineSection id="process" />
-        
-        <CredibilitySection />
+        <ProcessTimelineSection />
         
         {/* Future sections will go here */}
       </main>
