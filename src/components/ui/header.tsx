@@ -1,8 +1,8 @@
 /*
- * Apple-inspired liquid glass header component
- * Features responsive navigation, mobile menu, and glass morphism design
+ * Header Component - Navigation and branding
+ * Features responsive navigation, mobile menu, and call-to-action buttons
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowRight, Rocket } from "lucide-react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
@@ -97,7 +97,7 @@ export function Header() {
                 {/* Desktop/Tablet CTA */}
                 <div className="hidden md:flex">
                   <SparklesButton
-                    variant="outline"
+                    variant="secondary"
                     size="sm"
                     onClick={() => console.log("Header CTA clicked")}
                     className="text-sm px-6"

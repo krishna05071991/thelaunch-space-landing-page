@@ -1,11 +1,11 @@
 /*
- * Footer Section Component - Simple footer with contact information
- * Features responsive typography and consistent thelaunch.space branding
+ * Footer Component - Site footer with links and branding
+ * Features navigation links, social media, and company information
  */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from "motion/react";
 
-export const Footer = forwardRef<HTMLElement>((props, ref) => {
+export const Footer = forwardRef<HTMLElement>((_, ref) => {
   return (
     <footer className="relative z-10 py-8 lg:py-12" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

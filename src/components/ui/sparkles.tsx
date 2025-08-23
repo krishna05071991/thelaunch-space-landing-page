@@ -1,12 +1,11 @@
 /*
- * Sparkles Core Component - Provides animated particle effects
- * Used for CTA buttons in hero, pricing, and call-to-action sections
+ * Sparkles Component - Animated sparkles effect
+ * Features customizable particle effects and responsive design
  */
 "use client";
-import React, { useId, useMemo } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import type { Container, SingleOrMultiple } from "@tsparticles/engine";
+import type { Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "motion/react";
@@ -55,12 +54,12 @@ export const SparklesCore = (props: ParticlesProps) => {
     }
   };
 
-  const generatedId = useId();
+  const generatedId = useRef(id || "sparkles-core");
   return (
     <motion.div animate={controls} className={cn("opacity-0", className)}>
       {init && (
         <Particles
-          id={id || generatedId}
+          id={generatedId.current}
           className={cn("h-full w-full")}
           particlesLoaded={particlesLoaded}
           options={{

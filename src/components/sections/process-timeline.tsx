@@ -1,8 +1,8 @@
 /*
- * Process Timeline Section Component - Shows MVP development process in 3-4 weeks
- * Features vertical timeline with glass morphism cards and responsive design
+ * Process Timeline Section Component - Step-by-step process visualization
+ * Features timeline layout, progress indicators, and clear process steps
  */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from "motion/react";
 
 interface TimelineItem {
@@ -33,7 +33,7 @@ const timelineData: TimelineItem[] = [
   }
 ];
 
-export const ProcessTimelineSection = forwardRef<HTMLElement>((props, ref) => {
+export const ProcessTimelineSection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <section className="relative z-10 min-h-screen flex items-center py-4 lg:py-8" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

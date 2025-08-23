@@ -1,13 +1,13 @@
 /*
- * Final CTA Section Component - Final call-to-action encouraging immediate action
- * Features urgency messaging and consistent color palette with landing page theme
+ * Final CTA Section Component - Last call-to-action before footer
+ * Features compelling copy, social proof, and clear next steps
  */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from "motion/react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 
-export const FinalCTASection = forwardRef<HTMLElement>((props, ref) => {
+export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <section className="relative z-10 min-h-screen flex items-center py-8 lg:py-16" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

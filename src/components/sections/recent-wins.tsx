@@ -1,8 +1,8 @@
 /*
- * Recent Wins Section Component - Showcases live projects with sticky card scroll effect
- * Features glass containers, category tags, and testimonial quotes for social proof
+ * Recent Wins Section Component - Success stories and case studies
+ * Features customer testimonials, metrics, and achievement highlights
  */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from "motion/react";
 
 interface ProjectCard {
@@ -73,7 +73,7 @@ const projectsData: ProjectCard[] = [
   },
 ];
 
-export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
+export const RecentWinsSection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <section className="relative z-10 py-20 lg:py-32" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

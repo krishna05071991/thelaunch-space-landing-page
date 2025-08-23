@@ -1,8 +1,8 @@
 /*
- * Credibility Section Component - Krishna's story and credentials
- * Features circular photo frame, narrative content, and credibility markers
+ * Credibility Section Component - Social proof and testimonials
+ * Features customer testimonials, case studies, and trust indicators
  */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from "motion/react";
 import { Check, Award, Users, TrendingUp, Zap } from "lucide-react";
 
@@ -29,7 +29,7 @@ const credentialsData = [
   },
 ];
 
-export const CredibilitySection = forwardRef<HTMLElement>((props, ref) => {
+export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <section className="relative z-10 min-h-screen flex items-center py-4 lg:py-8" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

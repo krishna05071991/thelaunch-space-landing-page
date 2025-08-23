@@ -2,7 +2,7 @@
  * AI Building Mastery Section Component - Krishna's coaching and educational offerings
  * Features educator background, testimonials, learning outcomes, and pricing options
  */
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { motion } from "motion/react";
 import { Check, BookOpen, Users, User } from "lucide-react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
@@ -14,7 +14,7 @@ const learningOutcomes = [
   "Adopt a \"build, test, and launch\" mindset that gets you moving forward"
 ];
 
-export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
+export const AIMasterySection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <section className="relative z-10 min-h-screen flex items-center py-8 lg:py-16" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -204,7 +204,7 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
                       </p>
                     </div>
                     <SparklesButton
-                      variant="outline"
+                      variant="secondary"
                       size="lg"
                       onClick={() => console.log("1:1 Coaching clicked")}
                       className="w-full text-base lg:text-lg"
@@ -238,7 +238,7 @@ export const AIMasterySection = forwardRef<HTMLElement>((props, ref) => {
                       </p>
                     </div>
                     <SparklesButton
-                      variant="outline"
+                      variant="secondary"
                       size="lg"
                       onClick={() => console.log("Group Coaching clicked")}
                       className="w-full text-base lg:text-lg"
