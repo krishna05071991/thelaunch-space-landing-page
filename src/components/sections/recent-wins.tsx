@@ -3,7 +3,6 @@
  * Features glass containers, category tags, and testimonial quotes for social proof
  */
 import React, { forwardRef } from 'react';
-import { ReactLenis } from 'lenis/react';
 import { motion } from "motion/react";
 
 interface ProjectCard {
@@ -76,135 +75,131 @@ const projectsData: ProjectCard[] = [
 
 export const RecentWinsSection = forwardRef<HTMLElement>((props, ref) => {
   return (
-    <ReactLenis root>
-      <section className="relative z-10 py-20 lg:py-32" ref={ref}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+    <section className="relative z-10 py-20 lg:py-32" ref={ref}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section with sticky cards */}
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:px-16 gap-16 lg:gap-20">
             
-            {/* Section with sticky cards */}
-            <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-20">
-              
-              {/* Left: Sticky Cards */}
-              <div className="lg:w-1/2" style={{ height: `${projectsData.length * 100}vh` }}>
-                <div className="relative">
-                  {projectsData.map((project, i) => (
-                    <div key={i} className="lg:sticky lg:top-20 lg:h-screen lg:flex lg:items-center">
-                      <motion.article
-                        className={`
-                          relative backdrop-blur-xl bg-white/5 border border-white/10 
-                          rounded-2xl p-6 lg:p-8 shadow-2xl w-full max-w-lg mx-auto min-h-[20rem]
-                          ${project.rotation}
-                        `}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: i * 0.1 }}
-                      >
-                        {/* Subtle inner glow */}
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
-                        
-                        <div className="relative z-10 space-y-4">
-                          {/* Category Tag */}
-                          <span className={`
-                            inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border
-                            ${project.categoryColor}
-                          `}>
-                            {project.category}
-                          </span>
-                          
-                          {/* Title */}
-                          <h3 className="text-xl lg:text-2xl font-bold text-white leading-tight">
-                            {project.title}
-                          </h3>
-                          
-                          {/* Description */}
-                          <p className="text-sm lg:text-base text-white/80 leading-relaxed">
-                            {project.description}
-                          </p>
-                          
-                          {/* Testimonial */}
-                          <blockquote className="text-sm lg:text-base text-white/90 italic leading-relaxed font-medium border-l-2 border-white/20 pl-4">
-                            {project.testimonial}
-                          </blockquote>
-                        </div>
-                      </motion.article>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Right: Fixed Content */}
-              <div className="lg:w-1/2 lg:sticky lg:top-20 lg:h-screen lg:flex lg:items-start lg:pt-8">
-                <div className="space-y-8 lg:pl-12">
-                  {/* Main Headline */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+            {/* Left: Sticky Cards */}
+            <div className="lg:w-1/2 lg:grid lg:gap-2">
+              {projectsData.map((project, i) => (
+                <figure key={i} className="lg:sticky lg:top-20 lg:h-screen lg:grid lg:place-content-center">
+                  <motion.article
+                    className={`
+                      relative backdrop-blur-xl bg-white/5 border border-white/10 
+                      rounded-2xl p-6 lg:p-8 shadow-2xl w-full max-w-lg mx-auto min-h-[20rem]
+                      ${project.rotation}
+                    `}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-tight">
-                      Recent Builds That Are{" "}
-                      <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                        Actually Live
-                      </span>
-                    </h2>
-                  </motion.div>
-
-                  {/* Results Focus */}
-                  <motion.div
-                    className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl"
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
+                    transition={{ duration: 0.8, delay: i * 0.1 }}
                   >
                     {/* Subtle inner glow */}
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
                     
-                    <div className="relative z-10">
-                      <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">
-                        Results Focus
+                    <div className="relative z-10 space-y-4">
+                      {/* Category Tag */}
+                      <span className={`
+                        inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border
+                        ${project.categoryColor}
+                      `}>
+                        {project.category}
+                      </span>
+                      
+                      {/* Title */}
+                      <h3 className="text-xl lg:text-2xl font-bold text-white leading-tight">
+                        {project.title}
                       </h3>
-                      <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
-                        Every build is{" "}
-                        <span className="text-green-300 font-semibold">live and generating value</span>
-                        —nothing gathering dust in private repos.
+                      
+                      {/* Description */}
+                      <p className="text-sm lg:text-base text-white/80 leading-relaxed">
+                        {project.description}
                       </p>
+                      
+                      {/* Testimonial */}
+                      <blockquote className="text-sm lg:text-base text-white/90 italic leading-relaxed font-medium border-l-2 border-white/20 pl-4">
+                        {project.testimonial}
+                      </blockquote>
                     </div>
-                  </motion.div>
-
-                  {/* Stats Summary */}
-                  <motion.div
-                    className="grid grid-cols-3 gap-4 pt-8"
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                  >
-                    <div className="text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white mb-1">7</div>
-                      <div className="text-white/70 text-xs lg:text-sm">Live Projects</div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white mb-1">3</div>
-                      <div className="text-white/70 text-xs lg:text-sm">Categories</div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="text-2xl lg:text-3xl font-bold text-white mb-1">100%</div>
-                      <div className="text-white/70 text-xs lg:text-sm">Success Rate</div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-              
+                  </motion.article>
+                </figure>
+              ))}
             </div>
+            
+            {/* Right: Fixed Content */}
+            <div className="lg:w-1/2 lg:sticky lg:top-20 lg:h-screen lg:grid lg:place-content-center">
+              <div className="space-y-8">
+                {/* Main Headline */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-tight">
+                    Recent Builds That Are{" "}
+                    <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                      Actually Live
+                    </span>
+                  </h2>
+                </motion.div>
+
+                {/* Results Focus */}
+                <motion.div
+                  className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8 shadow-2xl"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  {/* Subtle inner glow */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">
+                      Results Focus
+                    </h3>
+                    <p className="text-lg lg:text-xl text-white/80 leading-relaxed">
+                      Every build is{" "}
+                      <span className="text-green-300 font-semibold">live and generating value</span>
+                      —nothing gathering dust in private repos.
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* Stats Summary */}
+                <motion.div
+                  className="grid grid-cols-3 gap-4 pt-8"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                >
+                  <div className="text-center">
+                    <div className="text-2xl lg:text-3xl font-bold text-white mb-1">7</div>
+                    <div className="text-white/70 text-xs lg:text-sm">Live Projects</div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-2xl lg:text-3xl font-bold text-white mb-1">3</div>
+                    <div className="text-white/70 text-xs lg:text-sm">Categories</div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-2xl lg:text-3xl font-bold text-white mb-1">100%</div>
+                    <div className="text-white/70 text-xs lg:text-sm">Success Rate</div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+            
           </div>
         </div>
-      </section>
-    </ReactLenis>
+      </div>
+    </section>
   );
 });
 
