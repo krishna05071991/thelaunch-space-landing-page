@@ -83,9 +83,48 @@
       }
     }
     </script>
+
+    <!-- Resource hints for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/index.css" as="style">
+    <link rel="preload" href="/src/main.tsx" as="script">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Critical CSS inline -->
+    <style>
+      /* Critical above-the-fold styles */
+      body { 
+        margin: 0; 
+        padding: 0; 
+        background: #0a0a0a; 
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .loading { 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100vh; 
+        color: white;
+        font-family: system-ui;
+      }
+      /* Prevent layout shift */
+      #root { min-height: 100vh; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading fallback -->
+      <div class="loading">
+        <div>Loading...</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
