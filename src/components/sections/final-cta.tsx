@@ -6,6 +6,7 @@ import { forwardRef } from 'react';
 import { motion } from "motion/react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
+import { FAQAccordion } from "@/components/ui/faq-accordion";
 
 export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
   return (
@@ -63,10 +64,10 @@ export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
                 <SparklesButton
                   variant="primary"
                   size="lg"
-                  onClick={() => console.log("Start Moving CTA clicked")}
+                  onClick={() => console.log("Start My First Step to Launch CTA clicked")}
                   className="text-xl lg:text-2xl px-8 lg:px-12 py-4 lg:py-6"
                 >
-                  Start Moving
+                  Start My First Step to Launch
                   <ArrowRight className="w-6 h-6 lg:w-7 lg:h-7 ml-3" />
                 </SparklesButton>
               </motion.div>
@@ -81,7 +82,9 @@ export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
               >
                 Book a 15-minute call to discuss your project. No pitch, just straight talk about what's possible.
               </motion.p>
-              
+
+              {/* FAQ Section */}
+              <FAQAccordion />
             </div>
           </div>
           

@@ -53,7 +53,7 @@ export function HeroSection() {
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white/80 tracking-tight leading-relaxed">
               <CleanAnimatedText 
-                text="While your competitors are still planning, you'll be talking to real users"
+                text="Launch fast, learn faster - get real user feedback within weeks, without hiring a dev team or touching a line of code."
                 className="text-white/80"
                 delay={1.8}
                 variant="fade"
@@ -71,10 +71,10 @@ export function HeroSection() {
             <SparklesButton
               variant="primary"
               size="lg"
-              onClick={() => console.log("Start Moving CTA clicked")}
+              onClick={() => console.log("Start My First Step to Launch CTA clicked")}
               className="text-lg lg:text-xl px-8 lg:px-12 py-4 lg:py-6"
             >
-              Start Moving
+              Start My First Step to Launch
               <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
             </SparklesButton>
           </motion.div>

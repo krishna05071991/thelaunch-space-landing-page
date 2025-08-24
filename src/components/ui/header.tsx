@@ -102,7 +102,7 @@ export function Header() {
                     onClick={() => console.log("Header CTA clicked")}
                     className="text-sm px-6"
                   >
-                    Start Moving
+                    Start My First Step to Launch
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </SparklesButton>
                 </div>
@@ -155,7 +155,7 @@ export function Header() {
                 </div>
                 <button
                   onClick={closeMobileMenu}
-                  className="p-2 text-white/80 hover:text-white transition-colors duration-300"
+                  className="p-2 bg-transparent text-white/80 hover:text-white transition-colors duration-300 shadow-none border-none focus:bg-transparent hover:bg-transparent"
                   aria-label="Close mobile menu"
                 >
                   <X className="w-6 h-6" />
@@ -195,7 +195,7 @@ export function Header() {
                   }}
                   className="w-full text-lg"
                 >
-                  Start Moving
+                  Start My First Step to Launch
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </SparklesButton>
               </div>
