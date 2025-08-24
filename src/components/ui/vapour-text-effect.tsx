@@ -118,7 +118,7 @@ export default function VaporizeTextCycle({
   // Calculate device pixel ratio
   const globalDpr = useMemo(() => {
     if (typeof window !== "undefined") {
-      return window.devicePixelRatio * 1.5 || 1;
+      return Math.min(window.devicePixelRatio * 1.2, 2); // Cap DPR at 2 for performance
     }
     return 1;
   }, []);
@@ -156,23 +156,97 @@ export default function VaporizeTextCycle({
     };
   }, [font.fontSize, font.fontWeight, font.fontFamily, spread, globalDpr]);
 
-  // Memoize particle update function
-  const memoizedUpdateParticles = useCallback((particles: Particle[], vaporizeX: number, deltaTime: number) => {
-    return updateParticles(
-      particles,
-      vaporizeX,
-      deltaTime,
-      fontConfig.MULTIPLIED_VAPORIZE_SPREAD,
-      animationDurations.VAPORIZE_DURATION,
-      direction,
-      transformedDensity
-    );
-  }, [fontConfig.MULTIPLIED_VAPORIZE_SPREAD, animationDurations.VAPORIZE_DURATION, direction, transformedDensity]);
+  // Memoize update function
+  const updateParticles = useCallback((particles: Particle[], vaporizeX: number, deltaTime: number, MULTIPLIED_VAPORIZE_SPREAD: number, VAPORIZE_DURATION: number, direction: string, density: number) => {
+    let allParticlesVaporized = true;
+    
+    particles.forEach(particle => {
+      // Only animate particles that have been "vaporized"
+      const shouldVaporize = direction === "left-to-right" 
+        ? particle.originalX <= vaporizeX 
+        : particle.originalX >= vaporizeX;
+      
+      if (shouldVaporize) {
+        // When a particle is first vaporized, determine if it should fade quickly based on density
+        if (particle.speed === 0) {
+          // Initialize particle motion when first vaporized
+          particle.angle = Math.random() * Math.PI * 2;
+          particle.speed = (Math.random() * 1 + 0.5) * MULTIPLIED_VAPORIZE_SPREAD;
+          particle.velocityX = Math.cos(particle.angle) * particle.speed;
+          particle.velocityY = Math.sin(particle.angle) * particle.speed;
+          
+          // Determine if particle should fade quickly based on density
+          // density of 1 means all particles animate normally
+          // density of 0.5 means 50% of particles fade quickly
+          particle.shouldFadeQuickly = Math.random() > density;
+        }
+        
+        if (particle.shouldFadeQuickly) {
+          // Quick fade out for particles marked to fade quickly
+          particle.opacity = Math.max(0, particle.opacity - deltaTime);
+        } else {
+          // Apply normal particle physics and animation
+          // Apply damping based on distance from original position
+          const dx = particle.originalX - particle.x;
+          const dy = particle.originalY - particle.y;
+          const distanceFromOrigin = Math.sqrt(dx * dx + dy * dy);
+          
+          // Damping factor increases with distance, creating a more natural motion
+          const dampingFactor = Math.max(0.95, 1 - distanceFromOrigin / (100 * MULTIPLIED_VAPORIZE_SPREAD));
+          
+          // Add slight random motion to create a more organic feel
+          const randomSpread = MULTIPLIED_VAPORIZE_SPREAD * 3;
+          const spreadX = (Math.random() - 0.5) * randomSpread;
+          const spreadY = (Math.random() - 0.5) * randomSpread;
+          
+          // Update velocities with damping and random motion
+          particle.velocityX = (particle.velocityX + spreadX + dx * 0.002) * dampingFactor;
+          particle.velocityY = (particle.velocityY + spreadY + dy * 0.002) * dampingFactor;
+          
+          // Limit maximum velocity
+          const maxVelocity = MULTIPLIED_VAPORIZE_SPREAD * 2;
+          const currentVelocity = Math.sqrt(particle.velocityX * particle.velocityX + particle.velocityY * particle.velocityY);
+          
+          if (currentVelocity > maxVelocity) {
+            const scale = maxVelocity / currentVelocity;
+            particle.velocityX *= scale;
+            particle.velocityY *= scale;
+          }
+          
+          // Update position
+          particle.x += particle.velocityX * deltaTime * 20;
+          particle.y += particle.velocityY * deltaTime * 10;
+          
+          // Calculate fade rate based on vaporize duration
+          const baseFadeRate = 0.25;
+          const durationBasedFadeRate = baseFadeRate * (2000 / VAPORIZE_DURATION);
+          
+          // Slower fade out for more persistence, scaled by duration
+          particle.opacity = Math.max(0, particle.opacity - durationBasedFadeRate * deltaTime);
+        }
+      } else {
+        allParticlesVaporized = false;
+      }
+    });
+    
+    return allParticlesVaporized;
+  }, []);
 
   // Memoize render function
-  const memoizedRenderParticles = useCallback((ctx: CanvasRenderingContext2D, particles: Particle[]) => {
-    renderParticles(ctx, particles, globalDpr);
-  }, [globalDpr]);
+  const renderParticles = useCallback((ctx: CanvasRenderingContext2D, particles: Particle[], opacity: number, dpr: number) => {
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    
+    particles.forEach(particle => {
+      if (particle.opacity > 0) {
+        const color = particle.color.replace(/[\d.]+\)$/, `${particle.opacity * opacity})`);
+        ctx.fillStyle = color;
+        ctx.fillRect(particle.x / dpr, particle.y / dpr, 1, 1);
+      }
+    });
+    
+    ctx.restore();
+  }, []);
 
   // Start animation cycle when in view
   useEffect(() => {
@@ -197,10 +271,18 @@ export default function VaporizeTextCycle({
 
     let lastTime = performance.now();
     let frameId: number;
+    const targetFPS = 30; // Reduce from 60fps to 30fps for better performance
+    const frameInterval = 1000 / targetFPS;
 
     const animate = (currentTime: number) => {
       const deltaTime = (currentTime - lastTime) / 1000;
       lastTime = currentTime;
+
+      // Frame rate limiting
+      if (currentTime - lastTime < frameInterval) {
+        frameId = requestAnimationFrame(animate);
+        return;
+      }
 
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext("2d");
@@ -215,89 +297,59 @@ export default function VaporizeTextCycle({
 
       // Update based on animation state
       switch (animationState) {
-        case "static": {
-          memoizedRenderParticles(ctx, particlesRef.current);
-          break;
-        }
-        case "vaporizing": {
-          // Calculate progress based on duration
-          vaporizeProgressRef.current += deltaTime * 100 / (animationDurations.VAPORIZE_DURATION / 1000);
-
-          // Get text boundaries
-          const textBoundaries = canvas.textBoundaries;
-          if (!textBoundaries) break;
-
-          // Calculate vaporize position based on text boundaries and direction
-          const progress = Math.min(100, vaporizeProgressRef.current);
-          const vaporizeX = direction === "left-to-right"
-            ? textBoundaries.left + textBoundaries.width * progress / 100
-            : textBoundaries.right - textBoundaries.width * progress / 100;
-
-          const allVaporized = memoizedUpdateParticles(particlesRef.current, vaporizeX, deltaTime);
-          memoizedRenderParticles(ctx, particlesRef.current);
-
-          // Check if vaporization is complete
-          if (vaporizeProgressRef.current >= 100 && allVaporized) {
-            setCurrentTextIndex(prevIndex => (prevIndex + 1) % texts.length);
+        case "vaporizing":
+          vaporizeProgressRef.current += deltaTime / animationDurations.VAPORIZE_DURATION;
+          
+          if (vaporizeProgressRef.current >= 1) {
             setAnimationState("fadingIn");
-            fadeOpacityRef.current = 0;
+            vaporizeProgressRef.current = 1;
           }
+          
+          updateParticles(
+            particlesRef.current,
+            vaporizeProgressRef.current * wrapperSize.width,
+            deltaTime,
+            fontConfig.MULTIPLIED_VAPORIZE_SPREAD,
+            animationDurations.VAPORIZE_DURATION,
+            direction,
+            transformedDensity
+          );
           break;
-        }
-        case "fadingIn": {
-          fadeOpacityRef.current += deltaTime * 1000 / animationDurations.FADE_IN_DURATION;
-
-          // Use particles for fade-in
-          ctx.save();
-          ctx.scale(globalDpr, globalDpr);
-          particlesRef.current.forEach(particle => {
-            particle.x = particle.originalX;
-            particle.y = particle.originalY;
-            const opacity = Math.min(fadeOpacityRef.current, 1) * particle.originalAlpha;
-            const color = particle.color.replace(/[\d.]+\)$/, `${opacity})`);
-            ctx.fillStyle = color;
-            ctx.fillRect(particle.x / globalDpr, particle.y / globalDpr, 1, 1);
-          });
-          ctx.restore();
-
+          
+        case "fadingIn":
+          fadeOpacityRef.current += deltaTime / animationDurations.FADE_IN_DURATION;
+          
           if (fadeOpacityRef.current >= 1) {
             setAnimationState("waiting");
-            setTimeout(() => {
-              setAnimationState("vaporizing");
-              vaporizeProgressRef.current = 0;
-              resetParticles(particlesRef.current);
-            }, animationDurations.WAIT_DURATION);
+            fadeOpacityRef.current = 1;
           }
           break;
-        }
-        case "waiting": {
-          memoizedRenderParticles(ctx, particlesRef.current);
+          
+        case "waiting":
+          // Wait before next cycle
+          setTimeout(() => {
+            setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+            setAnimationState("static");
+            vaporizeProgressRef.current = 0;
+            fadeOpacityRef.current = 0;
+          }, animationDurations.WAIT_DURATION * 1000);
           break;
-        }
       }
 
+      // Render particles
+      renderParticles(ctx, particlesRef.current, fadeOpacityRef.current, globalDpr);
+      
       frameId = requestAnimationFrame(animate);
     };
 
-    frameId = requestAnimationFrame(animate);
+    animate(performance.now());
 
     return () => {
       if (frameId) {
         cancelAnimationFrame(frameId);
       }
     };
-  }, [
-    animationState, 
-    isInView, 
-    texts.length, 
-    direction, 
-    globalDpr, 
-    memoizedUpdateParticles, 
-    memoizedRenderParticles, 
-    animationDurations.FADE_IN_DURATION, 
-    animationDurations.WAIT_DURATION, 
-    animationDurations.VAPORIZE_DURATION
-  ]);
+  }, [isInView, animationState, animationDurations, direction, transformedDensity, wrapperSize.width, updateParticles, renderParticles]);
 
   useEffect(() => {
       renderCanvas({
@@ -627,124 +679,6 @@ const createParticles = (
 };
 
 // Helper functions for particle animation
-const updateParticles = (
-  particles: Particle[],
-  vaporizeX: number,
-  deltaTime: number,
-  MULTIPLIED_VAPORIZE_SPREAD: number,
-  VAPORIZE_DURATION: number,
-  direction: string,
-  density: number
-) => {
-  let allParticlesVaporized = true;
-  
-  particles.forEach(particle => {
-    // Only animate particles that have been "vaporized"
-    const shouldVaporize = direction === "left-to-right" 
-      ? particle.originalX <= vaporizeX 
-      : particle.originalX >= vaporizeX;
-    
-    if (shouldVaporize) {
-      // When a particle is first vaporized, determine if it should fade quickly based on density
-      if (particle.speed === 0) {
-        // Initialize particle motion when first vaporized
-        particle.angle = Math.random() * Math.PI * 2;
-        particle.speed = (Math.random() * 1 + 0.5) * MULTIPLIED_VAPORIZE_SPREAD;
-        particle.velocityX = Math.cos(particle.angle) * particle.speed;
-        particle.velocityY = Math.sin(particle.angle) * particle.speed;
-        
-        // Determine if particle should fade quickly based on density
-        // density of 1 means all particles animate normally
-        // density of 0.5 means 50% of particles fade quickly
-        particle.shouldFadeQuickly = Math.random() > density;
-      }
-      
-      if (particle.shouldFadeQuickly) {
-        // Quick fade out for particles marked to fade quickly
-        particle.opacity = Math.max(0, particle.opacity - deltaTime);
-      } else {
-        // Apply normal particle physics and animation
-        // Apply damping based on distance from original position
-        const dx = particle.originalX - particle.x;
-        const dy = particle.originalY - particle.y;
-        const distanceFromOrigin = Math.sqrt(dx * dx + dy * dy);
-        
-        // Damping factor increases with distance, creating a more natural motion
-        const dampingFactor = Math.max(0.95, 1 - distanceFromOrigin / (100 * MULTIPLIED_VAPORIZE_SPREAD));
-        
-        // Add slight random motion to create a more organic feel
-        const randomSpread = MULTIPLIED_VAPORIZE_SPREAD * 3;
-        const spreadX = (Math.random() - 0.5) * randomSpread;
-        const spreadY = (Math.random() - 0.5) * randomSpread;
-        
-        // Update velocities with damping and random motion
-        particle.velocityX = (particle.velocityX + spreadX + dx * 0.002) * dampingFactor;
-        particle.velocityY = (particle.velocityY + spreadY + dy * 0.002) * dampingFactor;
-        
-        // Limit maximum velocity
-        const maxVelocity = MULTIPLIED_VAPORIZE_SPREAD * 2;
-        const currentVelocity = Math.sqrt(particle.velocityX * particle.velocityX + particle.velocityY * particle.velocityY);
-        
-        if (currentVelocity > maxVelocity) {
-          const scale = maxVelocity / currentVelocity;
-          particle.velocityX *= scale;
-          particle.velocityY *= scale;
-        }
-        
-        // Update position
-        particle.x += particle.velocityX * deltaTime * 20;
-        particle.y += particle.velocityY * deltaTime * 10;
-        
-        // Calculate fade rate based on vaporize duration
-        const baseFadeRate = 0.25;
-        const durationBasedFadeRate = baseFadeRate * (2000 / VAPORIZE_DURATION);
-        
-        // Slower fade out for more persistence, scaled by duration
-        particle.opacity = Math.max(0, particle.opacity - deltaTime * durationBasedFadeRate);
-      }
-      
-      // Check if this particle is still visible
-      if (particle.opacity > 0.01) {
-        allParticlesVaporized = false;
-      }
-    } else {
-      // If there are any particles not yet reached by the vaporize wave
-      allParticlesVaporized = false;
-    }
-  });
-  
-  return allParticlesVaporized;
-};
-
-const renderParticles = (ctx: CanvasRenderingContext2D, particles: Particle[], globalDpr: number) => {
-  ctx.save();
-  ctx.scale(globalDpr, globalDpr);
-  
-  particles.forEach(particle => {
-    if (particle.opacity > 0) {
-      const color = particle.color.replace(/[\d.]+\)$/, `${particle.opacity})`);
-      ctx.fillStyle = color;
-      ctx.fillRect(particle.x / globalDpr, particle.y / globalDpr, 1, 1);
-    }
-  });
-  
-  ctx.restore();
-};
-
-const resetParticles = (particles: Particle[]) => {
-  particles.forEach(particle => {
-    particle.x = particle.originalX;
-    particle.y = particle.originalY;
-    particle.opacity = particle.originalAlpha;
-    particle.speed = 0;
-    particle.velocityX = 0;
-    particle.velocityY = 0;
-  });
-};
-
-// ------------------------------------------------------------ //
-// CALCULATE VAPORIZE SPREAD
-// ------------------------------------------------------------ //
 const calculateVaporizeSpread = (fontSize: number) => {
   // Convert font size string to number if needed
   const size = typeof fontSize === "string" ? parseInt(fontSize) : fontSize;

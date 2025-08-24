@@ -24,31 +24,31 @@ export function CleanAnimatedText({
     return () => clearTimeout(timer);
   }, [delay]);
 
-    const getAnimationProps = () => {
+  const getAnimationProps = () => {
     switch (variant) {
       case "slide":
         return {
           initial: { opacity: 0, x: -20 },
           animate: isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 },
-          transition: { duration: 0.6 }
+          transition: { duration: 0.5, ease: "easeOut" as const }
         };
       case "scale":
         return {
           initial: { opacity: 0, scale: 0.8 },
           animate: isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 },
-          transition: { duration: 0.5 }
+          transition: { duration: 0.5, ease: "easeOut" as const }
         };
       case "bounce":
         return {
           initial: { opacity: 0, y: 20 },
           animate: isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
-          transition: { duration: 0.6 }
+          transition: { duration: 0.5, ease: "easeOut" as const }
         };
       default: // fade
         return {
           initial: { opacity: 0 },
           animate: isVisible ? { opacity: 1 } : { opacity: 0 },
-          transition: { duration: 0.8 }
+          transition: { duration: 0.6, ease: "easeOut" as const }
         };
     }
   };
@@ -57,6 +57,7 @@ export function CleanAnimatedText({
     <motion.span
       className={`inline-block ${className}`}
       {...getAnimationProps()}
+      style={{ willChange: "transform, opacity" }}
     >
       {text}
     </motion.span>
@@ -95,7 +96,8 @@ export function HighlightedText({
       className={`inline-block ${className}`}
       initial={{ opacity: 0, y: 10 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.5, ease: "easeOut" as const }}
+      style={{ willChange: "transform, opacity" }}
     >
       {parts.map((part, index) => (
         <span key={index}>
@@ -107,8 +109,10 @@ export function HighlightedText({
               animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ 
                 duration: 0.4, 
-                delay: delay + 0.2 + index * 0.1
+                delay: delay + 0.1 + index * 0.05,
+                ease: "easeOut" as const
               }}
+              style={{ willChange: "transform, opacity" }}
             >
               {highlight}
             </motion.span>

@@ -20,7 +20,8 @@ export function HeroSection() {
             className="mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white tracking-tighter leading-tight">
               <div className="mb-2">
@@ -50,13 +51,14 @@ export function HeroSection() {
             className="mb-8 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            style={{ willChange: "transform, opacity" }}
           >
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white/80 tracking-tight leading-relaxed">
               <CleanAnimatedText 
                 text="Launch fast, learn faster - get real user feedback within weeks, without hiring a dev team or touching a line of code."
                 className="text-white/80"
-                delay={1.8}
+                delay={1.2}
                 variant="fade"
               />
             </h2>
@@ -67,7 +69,8 @@ export function HeroSection() {
             className="mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.2 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+            style={{ willChange: "transform, opacity" }}
           >
             <SparklesButton
               variant="primary"
@@ -85,7 +88,8 @@ export function HeroSection() {
             className="mb-12 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.6 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+            style={{ willChange: "transform, opacity" }}
           >
             <p className="text-white/60 text-sm lg:text-base mb-6 text-center font-medium tracking-wide">
               Trusted by founders who move fast
@@ -113,12 +117,14 @@ export function HeroSection() {
               </div>
             </div>
           </motion.div>
+          
           {/* Secondary Text */}
           <motion.p 
             className="text-sm sm:text-base lg:text-lg text-white/50 italic"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 3.0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
+            style={{ willChange: "opacity" }}
           >
             Next available slot: September 2025
           </motion.p>
