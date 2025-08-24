@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { CleanAnimatedText } from "@/components/ui/clean-animated-text";
 import { TypewriterText } from "@/components/ui/animated-text";
+import { scrollToBooking } from "@/lib/utils";
 
 export function HeroSection() {
   return (
@@ -71,7 +72,7 @@ export function HeroSection() {
             <SparklesButton
               variant="primary"
               size="lg"
-              onClick={() => console.log("Get Your Launch Roadmap CTA clicked")}
+              onClick={scrollToBooking}
               className="text-lg lg:text-xl px-8 lg:px-12 py-4 lg:py-6"
             >
               Get Your Launch Roadmap
@@ -97,7 +98,7 @@ export function HeroSection() {
               </div>
               
               <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">$20k+</div>
+                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">$20k+k</div>
                 <div className="text-white/70 text-xs lg:text-sm">revenue generated</div>
               </div>
               
