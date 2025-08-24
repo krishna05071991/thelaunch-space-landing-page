@@ -65,7 +65,7 @@ export function Header() {
               {/* Subtle inner glow */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 via-white/5 to-white/10 pointer-events-none"></div>
               
-              <div className="relative z-10 flex items-center px-4 lg:px-6 py-3">
+              <div className="relative z-10 flex items-center justify-between px-4 lg:px-6 py-3">
                 
                 {/* Logo Section - Always on the left */}
                 <div className="flex items-center flex-shrink-0">
@@ -85,12 +85,11 @@ export function Header() {
                   </div>
                 </div>
 
-                {/* Desktop Navigation - Centered initially, slides left when CTA appears */}
+                {/* Desktop Navigation - Right side initially, slides left when CTA appears */}
                 <motion.nav 
-                  className="hidden md:flex items-center space-x-8 flex-1"
+                  className="hidden md:flex items-center space-x-8"
                   animate={{
-                    justifyContent: showHeaderCTA ? "flex-start" : "center",
-                    marginLeft: showHeaderCTA ? "2rem" : "0",
+                    marginRight: showHeaderCTA ? "1rem" : "0",
                   }}
                   transition={{ 
                     duration: 0.4, 
@@ -112,24 +111,24 @@ export function Header() {
                 {/* Desktop/Tablet CTA - Slides in from right */}
                 <motion.div 
                   className="hidden md:flex flex-shrink-0"
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 20, width: 0 }}
                   animate={{ 
                     opacity: showHeaderCTA ? 1 : 0, 
                     x: showHeaderCTA ? 0 : 20,
                     width: showHeaderCTA ? "auto" : 0,
-                    marginLeft: showHeaderCTA ? "1rem" : 0,
                   }}
                   transition={{ 
                     duration: 0.4, 
                     ease: "easeOut",
                     delay: showHeaderCTA ? 0.2 : 0 
                   }}
+                  style={{ overflow: "hidden" }}
                 >
                   <SparklesButton
                     variant="primary"
                     size="sm"
                     onClick={() => console.log("Header CTA clicked")}
-                    className="text-sm px-6"
+                    className="text-sm px-6 whitespace-nowrap"
                   >
                     Get Roadmap
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -139,7 +138,7 @@ export function Header() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={toggleMobileMenu}
-                  className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300 bg-transparent border-none shadow-none hover:bg-transparent focus:bg-transparent ml-auto"
+                  className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300 bg-transparent border-none shadow-none hover:bg-transparent focus:bg-transparent"
                   aria-label="Toggle mobile menu"
                 >
                   {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
