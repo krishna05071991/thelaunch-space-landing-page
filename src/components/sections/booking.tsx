@@ -4,7 +4,7 @@
  */
 import { forwardRef, useEffect } from 'react';
 import { motion } from "motion/react";
-import { CheckCircle, Clock, MessageSquare, Target } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 export const BookingSection = forwardRef<HTMLElement>((_, ref) => {
   useEffect(() => {
