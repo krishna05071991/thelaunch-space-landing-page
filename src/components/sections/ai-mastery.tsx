@@ -6,6 +6,7 @@ import { forwardRef } from 'react';
 import { motion } from "motion/react";
 import { Check, BookOpen, Users, User } from "lucide-react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
+import { scrollToBooking } from "@/lib/utils";
 
 const learningOutcomes = [
   "How to use prompt engineering as the new way to build with AI",
@@ -206,7 +207,7 @@ export const AIMasterySection = forwardRef<HTMLElement>((_, ref) => {
                     <SparklesButton
                       variant="secondary"
                       size="lg"
-                      onClick={() => console.log("1:1 Coaching clicked")}
+                      onClick={scrollToBooking}
                       className="w-full text-base lg:text-lg"
                     >
                       Book Your Personal Spot
@@ -240,7 +241,7 @@ export const AIMasterySection = forwardRef<HTMLElement>((_, ref) => {
                     <SparklesButton
                       variant="secondary"
                       size="lg"
-                      onClick={() => console.log("Group Coaching clicked")}
+                      onClick={scrollToBooking}
                       className="w-full text-base lg:text-lg"
                     >
                       Reserve Your Group Seat

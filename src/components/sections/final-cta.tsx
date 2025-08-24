@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { FAQAccordion } from "@/components/ui/faq-accordion";
+import { scrollToBooking } from "@/lib/utils";
 
 export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
   return (
@@ -64,7 +65,7 @@ export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
                 <SparklesButton
                   variant="primary"
                   size="lg"
-                  onClick={() => console.log("Get Your Launch Roadmap CTA clicked")}
+                  onClick={scrollToBooking}
                   className="text-xl lg:text-2xl px-8 lg:px-12 py-4 lg:py-6"
                 >
                   Get Your Launch Roadmap

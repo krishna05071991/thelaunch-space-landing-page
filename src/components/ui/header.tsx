@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowRight, Rocket } from "lucide-react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
+import { scrollToBooking } from "@/lib/utils";
 
 interface NavigationItem {
   name: string;
@@ -127,7 +128,7 @@ export function Header() {
                   <SparklesButton
                     variant="primary"
                     size="sm"
-                    onClick={() => console.log("Header CTA clicked")}
+                    onClick={scrollToBooking}
                     className="text-sm px-6 whitespace-nowrap"
                   >
                     Get Roadmap
@@ -218,7 +219,7 @@ export function Header() {
                   variant="primary"
                   size="lg"
                   onClick={() => {
-                    console.log("Mobile menu CTA clicked");
+                    scrollToBooking();
                     closeMobileMenu();
                   }}
                   className="w-full text-lg"

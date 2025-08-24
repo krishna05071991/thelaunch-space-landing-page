@@ -15,9 +15,11 @@ import { ProcessTimelineSection } from "@/components/sections/process-timeline";
 import { CredibilitySection } from "@/components/sections/credibility";
 import { AIMasterySection } from "@/components/sections/ai-mastery";
 import { FinalCTASection } from "@/components/sections/final-cta";
+import { BookingSection } from "@/components/sections/booking";
 import { Footer } from "@/components/sections/footer";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
+import { scrollToBooking } from "@/lib/utils";
 
 function App() {
   const [showMobileCTA, setShowMobileCTA] = useState(false);
@@ -63,6 +65,8 @@ function App() {
         <AIMasterySection />
         
         <FinalCTASection />
+        
+        <BookingSection />
       </main>
       
       {/* Footer */}
@@ -89,7 +93,7 @@ function App() {
                   <SparklesButton
                     variant="primary"
                     size="lg"
-                    onClick={() => console.log("Mobile sticky CTA clicked")}
+                    onClick={scrollToBooking}
                     className="w-full text-lg py-4"
                   >
                     Get Your Launch Roadmap
