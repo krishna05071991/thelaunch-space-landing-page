@@ -86,7 +86,7 @@ export const RecentWinsSection = forwardRef<HTMLElement>((_, ref) => {
             {/* Left: Sticky Cards */}
             <div className="lg:w-1/2 lg:grid lg:gap-2">
               {projectsData.map((project, i) => (
-                <figure key={i} className="lg:sticky lg:top-20 lg:h-screen lg:grid lg:place-content-center">
+                <figure key={i} className="lg:sticky lg:top-32 lg:h-screen lg:grid lg:place-content-center">
                   <motion.article
                     className={`
                       relative backdrop-blur-xl bg-white/5 border border-white/10 
@@ -131,7 +131,7 @@ export const RecentWinsSection = forwardRef<HTMLElement>((_, ref) => {
             </div>
             
             {/* Right: Fixed Content */}
-            <div className="lg:w-1/2 lg:sticky lg:top-20 lg:h-screen lg:grid lg:place-content-center">
+            <div className="lg:w-1/2 lg:sticky lg:top-32 lg:h-screen lg:grid lg:place-content-center">
               <div className="space-y-8">
                 {/* Main Headline */}
                 <motion.div

@@ -4,7 +4,7 @@
  */
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -51,13 +51,44 @@ export function BeamsBackground({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
-    const MINIMUM_BEAMS = 20;
+    const [isVisible, setIsVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    
+    // Reduce beam count on mobile for better performance
+    const MINIMUM_BEAMS = isMobile ? 12 : 20;
 
     const opacityMap = {
         subtle: 0.7,
         medium: 0.85,
         strong: 1,
     };
+
+    // Detect mobile device
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Intersection Observer to pause animations when off-screen
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsVisible(entry.isIntersecting);
+            },
+            { threshold: 0.1, rootMargin: '50px' }
+        );
+
+        if (canvasRef.current) {
+            observer.observe(canvasRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -67,7 +98,7 @@ export function BeamsBackground({
         if (!ctx) return;
 
         const updateCanvasSize = () => {
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR at 2 for performance
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             canvas.style.width = `${window.innerWidth}px`;
@@ -139,8 +170,22 @@ export function BeamsBackground({
             ctx.restore();
         }
 
-        function animate() {
-            if (!canvas || !ctx) return;
+        let lastTime = 0;
+        const targetFPS = 30; // Reduce from 60fps to 30fps for better performance
+        const frameInterval = 1000 / targetFPS;
+
+        function animate(currentTime: number) {
+            if (!canvas || !ctx || !isVisible) {
+                animationFrameRef.current = requestAnimationFrame(animate);
+                return;
+            }
+
+            // Frame rate limiting
+            if (currentTime - lastTime < frameInterval) {
+                animationFrameRef.current = requestAnimationFrame(animate);
+                return;
+            }
+            lastTime = currentTime;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.filter = "blur(35px)";
@@ -161,19 +206,19 @@ export function BeamsBackground({
             animationFrameRef.current = requestAnimationFrame(animate);
         }
 
-        animate();
+        animate(0);
 
         return () => {
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, [intensity]);
+    }, [intensity, isVisible, isMobile, MINIMUM_BEAMS]);
 
     return (
         <div
             className={cn(
-                "relative min-h-screen w-screen overflow-hidden bg-neutral-950 fixed inset-0",
+                "relative min-h-screen w-screen overflow-hidden fixed inset-0",
                 className
             )}
         >

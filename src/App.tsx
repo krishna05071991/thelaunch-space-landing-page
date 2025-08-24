@@ -19,35 +19,42 @@ import { BookingSection } from "@/components/sections/booking";
 import { Footer } from "@/components/sections/footer";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
-import { scrollToBooking } from "@/lib/utils";
+import { scrollToBooking, createThrottledScrollHandler, getCachedInnerHeight } from "@/lib/utils";
 
 function App() {
   const [showMobileCTA, setShowMobileCTA] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      // Show mobile CTA after hero section (approximately 100vh)
-      setShowMobileCTA(scrollY > window.innerHeight * 0.8);
+    const handleScroll = (scrollY: number) => {
+      // Show mobile CTA after a smaller threshold (about 40% of viewport height) - consistent with header
+      const heroThreshold = getCachedInnerHeight() * 0.4;
+      setShowMobileCTA(scrollY > heroThreshold);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const throttledScrollHandler = createThrottledScrollHandler(handleScroll);
+    
+    // Use passive event listener for better performance
+    window.addEventListener('scroll', throttledScrollHandler, { passive: true });
+    
+    // Initial call to set correct state
+    handleScroll(window.scrollY);
+    
+    return () => window.removeEventListener('scroll', throttledScrollHandler);
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-neutral-950">
       {/* Single BeamsBackground for entire page */}
       <BeamsBackground 
         intensity="strong" 
-        className="fixed inset-0 w-screen h-screen"
+        className="fixed inset-0 w-screen h-screen z-0"
       />
       
-      {/* Sticky Header */}
+      {/* Sticky Header - positioned outside the main content flow */}
       <Header />
       
       {/* Page Content - All sections share the same background */}
-      <main className="relative z-10">
+      <main className="relative z-10 bg-transparent" style={{ paddingTop: '0' }}>
         <HeroSection />
         
         <ProblemSolutionSection />
@@ -76,7 +83,7 @@ function App() {
       <AnimatePresence>
         {showMobileCTA && (
           <motion.div
-            className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+            className="fixed bottom-0 left-0 right-0 z-[90] md:hidden"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}

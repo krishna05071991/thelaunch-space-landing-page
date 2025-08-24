@@ -12,7 +12,7 @@ export function AnimatedText({
   text, 
   className = "", 
   delay = 0.5, 
-  duration = 0.8 
+  duration = 0.6 
 }: AnimatedTextProps) {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -29,25 +29,20 @@ export function AnimatedText({
       className={`inline-block ${className}`}
       initial={{ 
         opacity: 0, 
-        y: 20,
-        scale: 0.95
+        y: 20
       }}
       animate={isVisible ? {
         opacity: 1,
-        y: 0,
-        scale: 1
+        y: 0
       } : {
         opacity: 0,
-        y: 20,
-        scale: 0.95
+        y: 20
       }}
       transition={{
         duration: duration,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        type: "spring",
-        stiffness: 100,
-        damping: 15
+        ease: "easeOut"
       }}
+      style={{ willChange: "transform, opacity" }}
     >
       {text}
     </motion.span>
@@ -97,8 +92,9 @@ export function TypewriterText({
       {displayText}
       <motion.span
         animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity }}
+        transition={{ duration: 0.6, repeat: Infinity }}
         className="inline-block w-0.5 h-full bg-current ml-1"
+        style={{ willChange: "opacity" }}
       />
     </span>
   );
@@ -142,7 +138,7 @@ export function GradientText({
         backgroundPosition: "200% 50%"
       }}
       transition={{
-        duration: 1.2,
+        duration: 0.8,
         ease: "easeInOut",
         backgroundPosition: {
           duration: 2,
@@ -152,7 +148,8 @@ export function GradientText({
         }
       }}
       style={{
-        backgroundSize: "200% 200%"
+        backgroundSize: "200% 200%",
+        willChange: "opacity, background-position"
       }}
     >
       {text}

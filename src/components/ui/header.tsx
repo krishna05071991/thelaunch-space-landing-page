@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowRight, Rocket } from "lucide-react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
-import { scrollToBooking } from "@/lib/utils";
+import { scrollToBooking, createThrottledScrollHandler, getCachedInnerHeight } from "@/lib/utils";
 
 interface NavigationItem {
   name: string;
@@ -26,15 +26,24 @@ export function Header() {
   const [showHeaderCTA, setShowHeaderCTA] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
-      // Show header CTA after hero section (approximately 100vh)
-      setShowHeaderCTA(scrollY > window.innerHeight * 0.8);
+    const handleScroll = (scrollY: number) => {
+      // Set scrolled state for header styling - more sensitive
+      setIsScrolled(scrollY > 5);
+      
+      // Show header CTA after a smaller threshold (about 40% of viewport height)
+      const heroThreshold = getCachedInnerHeight() * 0.4;
+      setShowHeaderCTA(scrollY > heroThreshold);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const throttledScrollHandler = createThrottledScrollHandler(handleScroll);
+    
+    // Use passive event listener for better performance
+    window.addEventListener('scroll', throttledScrollHandler, { passive: true });
+    
+    // Initial call to set correct state
+    handleScroll(window.scrollY);
+    
+    return () => window.removeEventListener('scroll', throttledScrollHandler);
   }, []);
 
   const toggleMobileMenu = () => {
@@ -47,21 +56,21 @@ export function Header() {
 
   return (
     <>
-      {/* Main Header */}
-      <motion.header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'pt-2 pb-2' : 'pt-4 pb-4'
-        }`}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+      {/* Main Header - Glass design with working positioning */}
+      <header 
+        className="fixed top-0 left-0 right-0 z-[9999] pt-3 pb-3 transition-all duration-300"
+        style={{ 
+          willChange: 'transform, opacity',
+          transform: 'translateZ(0)',
+          pointerEvents: 'auto'
+        }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             
             {/* Glass Container */}
-            <div className={`relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl transition-all duration-300 ${
-              isScrolled ? 'bg-white/15 border-white/30' : ''
+            <div className={`relative backdrop-blur-3xl bg-black/80 border border-white/20 rounded-2xl shadow-2xl transition-all duration-300 ${
+              isScrolled ? 'bg-black/90 border-white/30 shadow-3xl' : 'bg-black/70 border-white/20'
             }`}>
               {/* Subtle inner glow */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 via-white/5 to-white/10 pointer-events-none"></div>
@@ -102,7 +111,7 @@ export function Header() {
                     <a
                       key={item.name}
                       href={item.href}
-                      className="text-white/80 hover:text-white font-medium transition-colors duration-300 hover:scale-105 transform"
+                      className="text-white/90 hover:text-white font-medium transition-colors duration-300 hover:scale-105 transform"
                     >
                       {item.name}
                     </a>
@@ -139,7 +148,7 @@ export function Header() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={toggleMobileMenu}
-                  className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300 bg-transparent border-none shadow-none hover:bg-transparent focus:bg-transparent"
+                  className="md:hidden p-2 text-white/90 hover:text-white transition-colors duration-300 bg-transparent border-none shadow-none hover:bg-transparent focus:bg-transparent"
                   aria-label="Toggle mobile menu"
                 >
                   {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -148,13 +157,13 @@ export function Header() {
             </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-50 md:hidden"
+            className="fixed inset-0 z-[100000] md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -74,6 +74,9 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                       src={krishnaPortrait} 
                       alt="Krishna - AI Builder and Technical Co-Founder" 
                       className="w-full h-full object-cover rounded-full"
+                      loading="lazy"
+                      decoding="async"
+                      style={{ willChange: "auto" }}
                     />
                   </div>
                 </div>
@@ -154,6 +157,9 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                         src={krishnaPortrait} 
                         alt="Krishna - AI Builder and Technical Co-Founder" 
                         className="w-full h-full object-cover rounded-full"
+                        loading="lazy"
+                        decoding="async"
+                        style={{ willChange: "auto" }}
                       />
                     </div>
                   </div>
