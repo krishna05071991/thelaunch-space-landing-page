@@ -2,24 +2,33 @@
  * Main App Component - thelaunch.space continuous scroll landing page
  * Features seamless BeamsBackground with modular section components
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from "motion/react";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { Header } from "@/components/ui/header";
 import { HeroSection } from "@/components/sections/hero";
-import { ProblemSolutionSection } from "@/components/sections/problem-solution";
-import { DifferentiationSection } from "@/components/sections/differentiation";
-import { RecentWinsSection } from "@/components/sections/recent-wins";
-import { PricingSection } from "@/components/sections/pricing";
-import { ProcessTimelineSection } from "@/components/sections/process-timeline";
-import { CredibilitySection } from "@/components/sections/credibility";
-import { AIMasterySection } from "@/components/sections/ai-mastery";
-import { FinalCTASection } from "@/components/sections/final-cta";
-import { BookingSection } from "@/components/sections/booking";
-import { Footer } from "@/components/sections/footer";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { ArrowRight } from "lucide-react";
 import { scrollToBooking, createThrottledScrollHandler, getCachedInnerHeight } from "@/lib/utils";
+
+// Lazy load non-critical sections
+const ProblemSolutionSection = lazy(() => import("@/components/sections/problem-solution").then(m => ({ default: m.ProblemSolutionSection })));
+const DifferentiationSection = lazy(() => import("@/components/sections/differentiation").then(m => ({ default: m.DifferentiationSection })));
+const RecentWinsSection = lazy(() => import("@/components/sections/recent-wins").then(m => ({ default: m.RecentWinsSection })));
+const PricingSection = lazy(() => import("@/components/sections/pricing").then(m => ({ default: m.PricingSection })));
+const ProcessTimelineSection = lazy(() => import("@/components/sections/process-timeline").then(m => ({ default: m.ProcessTimelineSection })));
+const CredibilitySection = lazy(() => import("@/components/sections/credibility").then(m => ({ default: m.CredibilitySection })));
+const AIMasterySection = lazy(() => import("@/components/sections/ai-mastery").then(m => ({ default: m.AIMasterySection })));
+const FinalCTASection = lazy(() => import("@/components/sections/final-cta").then(m => ({ default: m.FinalCTASection })));
+const BookingSection = lazy(() => import("@/components/sections/booking").then(m => ({ default: m.BookingSection })));
+const Footer = lazy(() => import("@/components/sections/footer").then(m => ({ default: m.Footer })));
+
+// Section loading fallback
+const SectionFallback = () => (
+  <div className="min-h-[400px] flex items-center justify-center">
+    <div className="animate-pulse bg-white/10 rounded-lg h-8 w-48"></div>
+  </div>
+);
 
 function App() {
   const [showMobileCTA, setShowMobileCTA] = useState(false);
@@ -57,27 +66,47 @@ function App() {
       <main className="relative z-10 bg-transparent" style={{ paddingTop: '0' }}>
         <HeroSection />
         
-        <ProblemSolutionSection />
+        <Suspense fallback={<SectionFallback />}>
+          <ProblemSolutionSection />
+        </Suspense>
         
-        <DifferentiationSection />
+        <Suspense fallback={<SectionFallback />}>
+          <DifferentiationSection />
+        </Suspense>
         
-        <RecentWinsSection />
+        <Suspense fallback={<SectionFallback />}>
+          <RecentWinsSection />
+        </Suspense>
         
-        <PricingSection />
+        <Suspense fallback={<SectionFallback />}>
+          <PricingSection />
+        </Suspense>
         
-        <ProcessTimelineSection />
+        <Suspense fallback={<SectionFallback />}>
+          <ProcessTimelineSection />
+        </Suspense>
         
-        <CredibilitySection />
+        <Suspense fallback={<SectionFallback />}>
+          <CredibilitySection />
+        </Suspense>
         
-        <AIMasterySection />
+        <Suspense fallback={<SectionFallback />}>
+          <AIMasterySection />
+        </Suspense>
         
-        <FinalCTASection />
+        <Suspense fallback={<SectionFallback />}>
+          <FinalCTASection />
+        </Suspense>
         
-        <BookingSection />
+        <Suspense fallback={<SectionFallback />}>
+          <BookingSection />
+        </Suspense>
       </main>
       
       {/* Footer */}
-      <Footer />
+      <Suspense fallback={<SectionFallback />}>
+        <Footer />
+      </Suspense>
 
       {/* Mobile Sticky CTA */}
       <AnimatePresence>

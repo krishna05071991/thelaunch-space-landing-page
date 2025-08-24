@@ -53,9 +53,11 @@ export function BeamsBackground({
     const animationFrameRef = useRef<number>(0);
     const [isVisible, setIsVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isReducedMotion, setIsReducedMotion] = useState(false);
     
-    // Reduce beam count on mobile for better performance
-    const MINIMUM_BEAMS = isMobile ? 12 : 20;
+    // Significantly reduce beam count on mobile for better performance
+    const MINIMUM_BEAMS = isMobile ? 6 : 15; // Reduced from 12/20
+    const MAX_FPS = isMobile ? 20 : 30; // Reduced from 30
 
     const opacityMap = {
         subtle: 0.7,
@@ -63,15 +65,26 @@ export function BeamsBackground({
         strong: 1,
     };
 
-    // Detect mobile device
+    // Detect mobile device and reduced motion preference
     useEffect(() => {
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768);
         };
         
+        const checkReducedMotion = () => {
+            setIsReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        };
+        
         checkMobile();
+        checkReducedMotion();
+        
         window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', checkReducedMotion);
+        
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+            window.matchMedia('(prefers-reduced-motion: reduce)').removeEventListener('change', checkReducedMotion);
+        };
     }, []);
 
     // Intersection Observer to pause animations when off-screen
@@ -98,14 +111,14 @@ export function BeamsBackground({
         if (!ctx) return;
 
         const updateCanvasSize = () => {
-            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR at 2 for performance
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // Reduced from 2
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             canvas.style.width = `${window.innerWidth}px`;
             canvas.style.height = `${window.innerHeight}px`;
             ctx.scale(dpr, dpr);
 
-            const totalBeams = MINIMUM_BEAMS * 1.5;
+            const totalBeams = MINIMUM_BEAMS * 1.2; // Reduced multiplier
             beamsRef.current = Array.from({ length: totalBeams }, () =>
                 createBeam(canvas.width, canvas.height)
             );
@@ -171,11 +184,11 @@ export function BeamsBackground({
         }
 
         let lastTime = 0;
-        const targetFPS = 30; // Reduce from 60fps to 30fps for better performance
+        const targetFPS = isReducedMotion ? 10 : MAX_FPS; // Respect reduced motion
         const frameInterval = 1000 / targetFPS;
 
         function animate(currentTime: number) {
-            if (!canvas || !ctx || !isVisible) {
+            if (!canvas || !ctx || !isVisible || isReducedMotion) {
                 animationFrameRef.current = requestAnimationFrame(animate);
                 return;
             }
@@ -188,12 +201,12 @@ export function BeamsBackground({
             lastTime = currentTime;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.filter = "blur(35px)";
+            ctx.filter = "blur(25px)"; // Reduced blur for performance
 
             const totalBeams = beamsRef.current.length;
             beamsRef.current.forEach((beam, index) => {
-                beam.y -= beam.speed;
-                beam.pulse += beam.pulseSpeed;
+                beam.y -= beam.speed * 0.8; // Slower movement
+                beam.pulse += beam.pulseSpeed * 0.7; // Slower pulsing
 
                 // Reset beam when it goes off screen
                 if (beam.y + beam.length < -100) {
@@ -213,7 +226,7 @@ export function BeamsBackground({
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, [intensity, isVisible, isMobile, MINIMUM_BEAMS]);
+    }, [intensity, isVisible, isMobile, isReducedMotion, MINIMUM_BEAMS, MAX_FPS]);
 
     return (
         <div
