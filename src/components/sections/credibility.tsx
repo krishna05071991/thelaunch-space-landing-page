@@ -132,7 +132,7 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
           </div>
 
           {/* Desktop/Tablet Layout */}
-          <div className="hidden lg:grid lg:grid-cols-5 lg:gap-12 xl:gap-16 h-full items-center">
+          <div className="hidden lg:grid lg:grid-cols-5 lg:gap-12 xl:gap-16 h-full items-end">
             
             {/* Left Side - Photo & Story */}
             <div className="lg:col-span-2 space-y-8">
@@ -159,13 +159,6 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                   </div>
                   {/* Animated glow effect */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-pulse"></div>
-                  {/* Decorative elements */}
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-green-500/20 border border-green-400/30 rounded-full flex items-center justify-center">
-                    <Check className="w-4 h-4 text-green-400" />
-                  </div>
-                  <div className="absolute -bottom-3 -left-3 w-8 h-8 bg-purple-500/20 border border-purple-400/30 rounded-full flex items-center justify-center">
-                    <Award className="w-4 h-4 text-purple-400" />
-                  </div>
                 </div>
               </motion.div>
 
@@ -179,8 +172,8 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
               >
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
                 <div className="relative z-10">
-                  <h3 className="text-xl xl:text-2xl font-bold text-white mb-4">Krishna's Story</h3>
-                  <p className="text-base xl:text-lg text-white/80 leading-relaxed mb-4">
+                  <h3 className="text-xl xl:text-2xl font-bold text-white mb-6">Krishna's Story</h3>
+                  <p className="text-base xl:text-lg text-white/80 leading-relaxed mb-6">
                     Led 300+ person teams at BYJU'S. Scaled products that improved academic outcomes by 30%+.
                   </p>
                   <p className="text-base xl:text-lg text-white/80 leading-relaxed">
@@ -192,7 +185,7 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
             </div>
             
             {/* Right Side - Heading & Credentials */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 flex flex-col justify-end">
               <motion.div
                 className="space-y-8"
                 initial={{ opacity: 0, x: 50 }}
@@ -201,7 +194,7 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
                 {/* Main Headline */}
-                <div>
+                <div className="mb-8">
                   <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white tracking-tight leading-tight">
                     From Educator to{" "}
                     <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
@@ -222,9 +215,9 @@ export const CredibilitySection = forwardRef<HTMLElement>((_, ref) => {
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
                   
                   <div className="relative z-10">
-                    <h3 className="text-xl xl:text-2xl font-bold text-white mb-6">Credentials</h3>
+                    <h3 className="text-xl xl:text-2xl font-bold text-white mb-8">Credentials</h3>
                     
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                       {credentialsData.map((credential, index) => (
                         <motion.div
                           key={index}

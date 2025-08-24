@@ -38,7 +38,7 @@ export const PricingSection = forwardRef<HTMLElement>((_, ref) => {
              tier="Landing Pages"
              price="$499"
              bestFor="Perfect for demo days and launches"
-             CTA="Start Your Launch Page"
+             CTA="Get Your Launch Roadmap"
               benefits={[
                { text: "Conversion-optimized for your audience", checked: true },
                { text: "Perfect for demo days and launches", checked: true },
@@ -50,7 +50,7 @@ export const PricingSection = forwardRef<HTMLElement>((_, ref) => {
              tier="MVP Launch"
              price="$1,499"
              bestFor="Live product your customers can actually use"
-             CTA="Launch Your MVP"
+             CTA="Get Your Launch Roadmap"
               isPopular={true}
               benefits={[
                { text: "Live product your customers can actually use", checked: true },
@@ -63,7 +63,7 @@ export const PricingSection = forwardRef<HTMLElement>((_, ref) => {
              tier="Ongoing Partnership"
              price="$1,999"
              bestFor="Think like your technical co-founder"
-             CTA="Become Partners"
+             CTA="Get Your Launch Roadmap"
               benefits={[
                { text: "Monthly engagement model", checked: true },
                { text: "Think like your technical co-founder", checked: true },

@@ -64,10 +64,10 @@ export const FinalCTASection = forwardRef<HTMLElement>((_, ref) => {
                 <SparklesButton
                   variant="primary"
                   size="lg"
-                  onClick={() => console.log("Start My First Step to Launch CTA clicked")}
+                  onClick={() => console.log("Get Your Launch Roadmap CTA clicked")}
                   className="text-xl lg:text-2xl px-8 lg:px-12 py-4 lg:py-6"
                 >
-                  Start My First Step to Launch
+                  Get Your Launch Roadmap
                   <ArrowRight className="w-6 h-6 lg:w-7 lg:h-7 ml-3" />
                 </SparklesButton>
               </motion.div>

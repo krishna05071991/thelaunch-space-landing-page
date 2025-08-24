@@ -22,10 +22,14 @@ const navigationItems: NavigationItem[] = [
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showHeaderCTA, setShowHeaderCTA] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+      // Show header CTA after hero section (approximately 100vh)
+      setShowHeaderCTA(scrollY > window.innerHeight * 0.8);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -61,10 +65,10 @@ export function Header() {
               {/* Subtle inner glow */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/10 via-white/5 to-white/10 pointer-events-none"></div>
               
-              <div className="relative z-10 flex items-center justify-between px-4 lg:px-6 py-3">
+              <div className="relative z-10 flex items-center px-4 lg:px-6 py-3">
                 
-                {/* Logo Section */}
-                <div className="flex items-center">
+                {/* Logo Section - Always on the left */}
+                <div className="flex items-center flex-shrink-0">
                   {/* Desktop/Laptop Logo */}
                   <div className="hidden lg:flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
@@ -81,8 +85,19 @@ export function Header() {
                   </div>
                 </div>
 
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center space-x-8">
+                {/* Desktop Navigation - Centered initially, slides left when CTA appears */}
+                <motion.nav 
+                  className="hidden md:flex items-center space-x-8 flex-1"
+                  animate={{
+                    justifyContent: showHeaderCTA ? "flex-start" : "center",
+                    marginLeft: showHeaderCTA ? "2rem" : "0",
+                  }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: "easeInOut",
+                    delay: showHeaderCTA ? 0.1 : 0 
+                  }}
+                >
                   {navigationItems.map((item) => (
                     <a
                       key={item.name}
@@ -92,25 +107,39 @@ export function Header() {
                       {item.name}
                     </a>
                   ))}
-                </nav>
+                </motion.nav>
 
-                {/* Desktop/Tablet CTA */}
-                <div className="hidden md:flex">
+                {/* Desktop/Tablet CTA - Slides in from right */}
+                <motion.div 
+                  className="hidden md:flex flex-shrink-0"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ 
+                    opacity: showHeaderCTA ? 1 : 0, 
+                    x: showHeaderCTA ? 0 : 20,
+                    width: showHeaderCTA ? "auto" : 0,
+                    marginLeft: showHeaderCTA ? "1rem" : 0,
+                  }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: "easeOut",
+                    delay: showHeaderCTA ? 0.2 : 0 
+                  }}
+                >
                   <SparklesButton
-                    variant="secondary"
+                    variant="primary"
                     size="sm"
                     onClick={() => console.log("Header CTA clicked")}
                     className="text-sm px-6"
                   >
-                    Start My First Step to Launch
+                    Get Roadmap
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </SparklesButton>
-                </div>
+                </motion.div>
 
                 {/* Mobile Menu Button */}
                 <button
                   onClick={toggleMobileMenu}
-                  className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300 bg-transparent border-none shadow-none hover:bg-transparent focus:bg-transparent"
+                  className="md:hidden p-2 text-white/80 hover:text-white transition-colors duration-300 bg-transparent border-none shadow-none hover:bg-transparent focus:bg-transparent ml-auto"
                   aria-label="Toggle mobile menu"
                 >
                   {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -195,7 +224,7 @@ export function Header() {
                   }}
                   className="w-full text-lg"
                 >
-                  Start My First Step to Launch
+                  Get Your Launch Roadmap
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </SparklesButton>
               </div>

@@ -52,6 +52,16 @@ export function SparklesButton({
       onMouseLeave={() => setIsHovered(false)}
       whileHover={disabled ? {} : { scale: 1.02 }}
       whileTap={disabled ? {} : { scale: 0.98 }}
+      animate={{
+        scale: [1, 1.02, 1],
+      }}
+      transition={{
+        scale: {
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      }}
       disabled={disabled}
     >
       {/* Sparkles Effect - Only on hover */}

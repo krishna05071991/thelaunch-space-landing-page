@@ -71,10 +71,10 @@ export function HeroSection() {
             <SparklesButton
               variant="primary"
               size="lg"
-              onClick={() => console.log("Start My First Step to Launch CTA clicked")}
+              onClick={() => console.log("Get Your Launch Roadmap CTA clicked")}
               className="text-lg lg:text-xl px-8 lg:px-12 py-4 lg:py-6"
             >
-              Start My First Step to Launch
+              Get Your Launch Roadmap
               <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 ml-2" />
             </SparklesButton>
           </motion.div>
@@ -87,7 +87,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 2.6 }}
           >
             <p className="text-white/60 text-sm lg:text-base mb-6 text-center font-medium tracking-wide">
-              Trusted by founders who move fast:
+              Trusted by founders who move fast
             </p>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
@@ -97,7 +97,7 @@ export function HeroSection() {
               </div>
               
               <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">$15k</div>
+                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">$20k+</div>
                 <div className="text-white/70 text-xs lg:text-sm">revenue generated</div>
               </div>
               
