@@ -4,7 +4,7 @@
  */
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, ArrowRight, Rocket } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { SparklesButton } from "@/components/ui/sparkles-button";
 import { scrollToBooking, createThrottledScrollHandler, getCachedInnerHeight } from "@/lib/utils";
 
@@ -81,17 +81,13 @@ export function Header() {
                 <div className="flex items-center flex-shrink-0">
                   {/* Desktop/Laptop Logo */}
                   <div className="hidden lg:flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                      <Rocket className="w-5 h-5 text-white" />
-                    </div>
+                    <img src="/logo.png" alt="thelaunch.space" className="w-8 h-8" />
                     <span className="text-xl font-bold text-white">thelaunch.space</span>
                   </div>
                   
                   {/* Tablet/Mobile Logo (Icon only) */}
                   <div className="lg:hidden">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                      <Rocket className="w-6 h-6 text-white" />
-                    </div>
+                    <img src="/logo.png" alt="thelaunch.space" className="w-10 h-10" />
                   </div>
                 </div>
 
@@ -186,9 +182,7 @@ export function Header() {
               {/* Menu Header */}
               <div className="flex items-center justify-between p-6 border-b border-white/10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <Rocket className="w-5 h-5 text-white" />
-                  </div>
+                  <img src="/logo.png" alt="thelaunch.space" className="w-8 h-8" />
                   <span className="text-lg font-bold text-white">thelaunch.space</span>
                 </div>
                 <button
