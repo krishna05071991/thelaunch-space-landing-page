@@ -9,7 +9,6 @@ import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
 
 export const BookingSection = forwardRef<HTMLElement>((_, ref) => {
   const [isContentExpanded, setIsContentExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Load Calendly script
@@ -18,20 +17,11 @@ export const BookingSection = forwardRef<HTMLElement>((_, ref) => {
     script.async = true;
     document.head.appendChild(script);
 
-    // Check if mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
     return () => {
       // Cleanup script on unmount
       if (document.head.contains(script)) {
         document.head.removeChild(script);
       }
-      window.removeEventListener('resize', checkMobile);
     };
   }, []);
 
@@ -42,8 +32,8 @@ export const BookingSection = forwardRef<HTMLElement>((_, ref) => {
       const mobileCTA = document.querySelector('[data-mobile-cta]');
       
       if (bookingSection && mobileCTA) {
-        const sectionTop = bookingSection.offsetTop;
-        const sectionBottom = sectionTop + bookingSection.offsetHeight;
+        const sectionTop = (bookingSection as HTMLElement).offsetTop;
+        const sectionBottom = sectionTop + (bookingSection as HTMLElement).offsetHeight;
         const scrollY = window.scrollY;
         const windowHeight = window.innerHeight;
         
