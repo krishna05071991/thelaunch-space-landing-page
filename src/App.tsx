@@ -23,10 +23,10 @@ const FinalCTASection = lazy(() => import("@/components/sections/final-cta").the
 const BookingSection = lazy(() => import("@/components/sections/booking").then(m => ({ default: m.BookingSection })));
 const Footer = lazy(() => import("@/components/sections/footer").then(m => ({ default: m.Footer })));
 
-// Section loading fallback
+// Section loading fallback - more subtle and less jarring
 const SectionFallback = () => (
-  <div className="min-h-[400px] flex items-center justify-center">
-    <div className="animate-pulse bg-white/10 rounded-lg h-8 w-48"></div>
+  <div className="min-h-[200px] flex items-center justify-center opacity-50">
+    <div className="animate-pulse bg-white/5 rounded-lg h-4 w-32"></div>
   </div>
 );
 
@@ -112,11 +112,12 @@ function App() {
       <AnimatePresence>
         {showMobileCTA && (
           <motion.div
-            className="fixed bottom-0 left-0 right-0 z-[90] md:hidden"
+            className="fixed bottom-0 left-0 right-0 z-[90] md:hidden transition-opacity duration-300"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
+            data-mobile-cta
           >
             {/* Safe area padding for devices with home indicators */}
             <div className="pb-safe">

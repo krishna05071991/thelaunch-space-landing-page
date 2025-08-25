@@ -48,7 +48,7 @@ export const PricingSection = forwardRef<HTMLElement>((_, ref) => {
             />
             <PricingCard
              tier="MVP Launch"
-             price="$1,499"
+             price="$1,999"
              bestFor="Live product your customers can actually use"
              CTA="Get Your Launch Roadmap"
               isPopular={true}
@@ -61,7 +61,7 @@ export const PricingSection = forwardRef<HTMLElement>((_, ref) => {
             />
             <PricingCard
              tier="Ongoing Partnership"
-             price="$1,999"
+             price="$1,499"
              bestFor="Think like your technical co-founder"
              CTA="Get Your Launch Roadmap"
               benefits={[
