@@ -102,7 +102,7 @@ export function HeroSection() {
               </div>
               
               <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">$20k+k</div>
+                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">$20k+</div>
                 <div className="text-white/70 text-xs lg:text-sm">revenue generated</div>
               </div>
               
